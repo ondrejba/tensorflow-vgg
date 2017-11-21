@@ -48,7 +48,7 @@ images = tf.placeholder(tf.float32, [1, 224, 224, 3])
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-deconv_img, deconv_gates = vgg.debuild()
+deconv_img, deconv_gates = vgg.debuild_full()
 
 num_images_per_class = 1
 class_counts = {idx: 0 for idx in range(1000)}
@@ -68,7 +68,7 @@ with tf.Session() as sess:
             img = utils.load_image(img_path)
 
             orig_path = os.path.join(img_dir, "orig.jpg")
-            cv2.imwrite(orig_path, img / 255)
+            cv2.imwrite(orig_path, img * 255)
 
             batch = img.reshape((1, 224, 224, 3))
 
