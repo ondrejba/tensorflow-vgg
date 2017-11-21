@@ -45,26 +45,26 @@ class Vgg16:
 
         self.conv1_1 = self.conv_layer(bgr, "conv1_1")
         self.conv1_2 = self.conv_layer(self.conv1_1, "conv1_2")
-        self.pool1 = self.max_pool(self.conv1_2, 'pool1')
+        self.pool1, self.mask1 = self.max_pool(self.conv1_2, 'pool1')
 
         self.conv2_1 = self.conv_layer(self.pool1, "conv2_1")
         self.conv2_2 = self.conv_layer(self.conv2_1, "conv2_2")
-        self.pool2 = self.max_pool(self.conv2_2, 'pool2')
+        self.pool2, self.mask2 = self.max_pool(self.conv2_2, 'pool2')
 
         self.conv3_1 = self.conv_layer(self.pool2, "conv3_1")
         self.conv3_2 = self.conv_layer(self.conv3_1, "conv3_2")
         self.conv3_3 = self.conv_layer(self.conv3_2, "conv3_3")
-        self.pool3 = self.max_pool(self.conv3_3, 'pool3')
+        self.pool3, self.mask3 = self.max_pool(self.conv3_3, 'pool3')
 
         self.conv4_1 = self.conv_layer(self.pool3, "conv4_1")
         self.conv4_2 = self.conv_layer(self.conv4_1, "conv4_2")
         self.conv4_3 = self.conv_layer(self.conv4_2, "conv4_3")
-        self.pool4 = self.max_pool(self.conv4_3, 'pool4')
+        self.pool4, self.mask4 = self.max_pool(self.conv4_3, 'pool4')
 
         self.conv5_1 = self.conv_layer(self.pool4, "conv5_1")
         self.conv5_2 = self.conv_layer(self.conv5_1, "conv5_2")
         self.conv5_3 = self.conv_layer(self.conv5_2, "conv5_3")
-        self.pool5 = self.max_pool(self.conv5_3, 'pool5')
+        self.pool5, self.mask5 = self.max_pool(self.conv5_3, 'pool5')
 
         self.fc6 = self.fc_layer(self.pool5, "fc6")
         assert self.fc6.get_shape().as_list()[1:] == [4096]
@@ -80,11 +80,45 @@ class Vgg16:
         self.data_dict = None
         print(("build model finished: %ds" % (time.time() - start_time)))
 
+    def debuild(self, activations, filter_idx):
+
+        activations = self.fill_filters_with_zeros(activations, filter_idx)
+
+        activations = self.conv_reverse(activations, "conv1_1:weights")
+        return activations
+
     def avg_pool(self, bottom, name):
         return tf.nn.avg_pool(bottom, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME', name=name)
 
     def max_pool(self, bottom, name):
-        return tf.nn.max_pool(bottom, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME', name=name)
+        return tf.nn.max_pool_with_argmax(bottom, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding="SAME", name=name)
+
+    def max_pool_reverse(self, activations, mask, ksize=(1, 2, 2, 1), scope="DeConv2D"):
+
+        with tf.variable_scope(scope):
+            input_shape = tf.shape(activations)
+            output_shape = [input_shape[0], input_shape[1] * ksize[1], input_shape[2] * ksize[2], input_shape[3]]
+
+            flat_input_size = tf.reduce_prod(input_shape)
+            flat_output_shape = [output_shape[0], output_shape[1] * output_shape[2] * output_shape[3]]
+
+            pool_ = tf.reshape(activations, [flat_input_size])
+            batch_range = tf.reshape(tf.range(tf.cast(output_shape[0], tf.int64), dtype=mask.dtype),
+                                     shape=[input_shape[0], 1, 1, 1])
+            b = tf.ones_like(mask) * batch_range
+            b1 = tf.reshape(b, [flat_input_size, 1])
+            ind_ = tf.reshape(mask, [flat_input_size, 1])
+            ind_ = tf.concat([b1, ind_], 1)
+
+            ret = tf.scatter_nd(ind_, pool_, shape=tf.cast(flat_output_shape, tf.int64))
+            ret = tf.reshape(ret, output_shape)
+
+            set_input_shape = activations.get_shape()
+            set_output_shape = [set_input_shape[0], set_input_shape[1] * ksize[1], set_input_shape[2] * ksize[2],
+                                set_input_shape[3]]
+            ret.set_shape(set_output_shape)
+
+            return ret
 
     def conv_layer(self, bottom, name):
         with tf.variable_scope(name):
@@ -97,6 +131,20 @@ class Vgg16:
 
             relu = tf.nn.relu(bias)
             return relu
+
+    def conv_reverse(self, activations, conv_weights_name, stride=1):
+
+        input_shape = activations.shape
+
+        conv1_weights = tf.get_default_graph().get_tensor_by_name(conv_weights_name)
+
+        conv1_weights = tf.transpose(conv1_weights, (1, 0, 2, 3))
+
+        output_shape = (input_shape[0].value, input_shape[1].value * stride, input_shape[2].value * stride,
+                        conv1_weights.shape[2].value)
+
+        return tf.nn.conv2d_transpose(activations, conv1_weights, output_shape, (1, stride, stride, 1),
+                                      padding="SAME", name="DeConv2D")
 
     def fc_layer(self, bottom, name):
         with tf.variable_scope(name):
@@ -114,6 +162,17 @@ class Vgg16:
             fc = tf.nn.bias_add(tf.matmul(x, weights), biases)
 
             return fc
+
+    def fill_filters_with_zeros(self, tensor, filter_idx):
+
+        zeros = tf.zeros_like(tensor)
+
+        zeros_1 = zeros[..., :filter_idx]
+        zeros_2 = zeros[..., filter_idx + 1:]
+
+        zeros = tf.concat([zeros_1, tensor[..., filter_idx:filter_idx + 1], zeros_2], axis=-1)
+
+        return zeros
 
     def get_conv_filter(self, name):
         return tf.constant(self.data_dict[name][0], name="filter")
