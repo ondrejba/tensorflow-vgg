@@ -61,7 +61,15 @@ with tf.Session() as sess:
 
         if class_counts[cls] < num_images_per_class:
 
+            img_dir = os.path.join(run_dir, str(cls))
+            if not os.path.isdir(img_dir):
+                os.makedirs(img_dir)
+
             img = utils.load_image(img_path)
+
+            orig_path = os.path.join(img_dir, "orig.jpg")
+            cv2.imwrite(orig_path, img)
+
             batch = img.reshape((1, 224, 224, 3))
 
             for layer_idx in range(len(deconv_gates)):
@@ -77,10 +85,6 @@ with tf.Session() as sess:
                 img_val = z_norm(img_val)
                 img_val = np.clip(img_val, 0, 1)
                 img_val *= 255
-
-                img_dir = os.path.join(run_dir, str(cls))
-                if not os.path.isdir(img_dir):
-                  os.makedirs(img_dir)
 
                 img_path = os.path.join(img_dir, "layer{}.jpg".format(layer_idx))
                 cv2.imwrite(img_path, img_val)
