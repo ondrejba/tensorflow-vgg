@@ -6,6 +6,7 @@ import vgg16
 import utils
 
 def z_norm(img_val):
+
   return (img_val - np.mean(img_val)) / max(np.std(img_val), 10e-4) * 0.1 + 0.5
 
 def new_run_dir(base):
@@ -33,7 +34,7 @@ filter_idx = tf.placeholder(tf.int32)
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-activations = tf.get_default_graph().get_operation_by_name("conv1_1").outputs[0]
+activations = tf.get_default_graph().get_operation_by_name("conv1_1/Conv2D").outputs[0]
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
 
