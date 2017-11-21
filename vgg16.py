@@ -84,7 +84,12 @@ class Vgg16:
 
         activations = self.fill_filters_with_zeros(activations, filter_idx)
 
+        activations = self.conv_reverse(activations, "conv2_1/filter:0")
+
+        activations = self.max_pool_reverse(activations, self.mask1)
+        activations = self.conv_reverse(activations, "conv1_2/filter:0")
         activations = self.conv_reverse(activations, "conv1_1/filter:0")
+
         return activations
 
     def avg_pool(self, bottom, name):
