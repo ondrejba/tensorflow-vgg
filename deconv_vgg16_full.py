@@ -79,7 +79,8 @@ with tf.Session() as sess:
                 img_val *= 255
 
                 img_dir = os.path.join(run_dir, str(cls))
-                os.makedirs(img_dir)
+                if not os.path.isdir(img_dir)
+                  os.makedirs(img_dir)
 
                 img_path = os.path.join(img_dir, "layer{}.jpg".format(layer_idx))
                 cv2.imwrite(img_path, img_val)
