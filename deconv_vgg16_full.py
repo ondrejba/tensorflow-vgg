@@ -50,7 +50,7 @@ vgg.build(images)
 
 deconv_img, deconv_gates = vgg.debuild()
 
-num_images_per_class = 5
+num_images_per_class = 1
 class_counts = {idx: 0 for idx in range(1000)}
 
 with tf.Session() as sess:
