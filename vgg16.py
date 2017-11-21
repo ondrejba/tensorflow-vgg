@@ -87,7 +87,7 @@ class Vgg16:
             ["pool5", "conv5_3", "conv5_2", "conv5_1", "pool4", "conv4_3", "conv4_2", "conv4_1",
              "pool3", "conv3_3", "conv3_2", "conv3_1", "pool2", "conv2_2", "conv2_1", "pool1", "conv1_2", "conv1_1"]}
 
-        activations = self.max_pool_reverse(self.fill_filters_with_zeros(self.op_outputs("pool5/MaxPool"), filter_idx),
+        activations = self.max_pool_reverse(self.fill_filters_with_zeros(self.op_outputs("pool5"), filter_idx),
                                             self.mask5)
 
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_3/Conv2D"),
@@ -97,7 +97,7 @@ class Vgg16:
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_1/Conv2D"),
                                         deconv_gates["conv5_1"], filter_idx), "conv5_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool4/MaxPool"),
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool4"),
                                             deconv_gates["pool4"], filter_idx), self.mask4)
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv4_3/Conv2D"),
                                         deconv_gates["conv4_3"], filter_idx), "conv4_3/filter:0")
@@ -106,7 +106,7 @@ class Vgg16:
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv4_1/Conv2D"),
                                         deconv_gates["conv4_1"], filter_idx), "conv4_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool3/MaxPool"),
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool3"),
                                         deconv_gates["pool3"], filter_idx), self.mask3)
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv3_3/Conv2D"),
                                         deconv_gates["conv3_3"], filter_idx), "conv3_3/filter:0")
@@ -115,14 +115,14 @@ class Vgg16:
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv3_1/Conv2D"),
                                         deconv_gates["conv3_1"], filter_idx), "conv3_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool2/MaxPool"),
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool2"),
                                         deconv_gates["pool2"], filter_idx), self.mask2)
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv2_2/Conv2D"),
                                         deconv_gates["conv2_2"], filter_idx), "conv2_2/filter:0")
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv2_1/Conv2D"),
                                         deconv_gates["conv2_1"], filter_idx), "conv2_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool1/MaxPool"),
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool1"),
                                         deconv_gates["pool1"], filter_idx), self.mask1)
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv1_2/Conv2D"),
                                         deconv_gates["conv1_2"], filter_idx), "conv1_2/filter:0")
