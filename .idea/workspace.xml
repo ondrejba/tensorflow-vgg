@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2719d38c-18eb-42da-949b-243f96b2a3a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deconv_vgg16.py" afterPath="$PROJECT_DIR$/deconv_vgg16.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/deconv_vgg16.py" afterPath="$PROJECT_DIR$/deconv_vgg16_full.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="deconv_vgg16.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/deconv_vgg16.py">
+      <file leaf-file-name="deconv_vgg16_full.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/deconv_vgg16_full.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="617">
-              <caret line="53" column="4" lean-forward="false" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
+            <state relative-caret-position="396">
+              <caret line="55" column="26" lean-forward="false" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -25,22 +27,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vgg16.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vgg16.py">
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="91" column="25" lean-forward="false" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="25" />
+            <state relative-caret-position="1494">
+              <caret line="83" column="15" lean-forward="false" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="15" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tiger.jpeg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_data/tiger.jpeg">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
@@ -51,6 +46,7 @@
       <find>get_conv_filter</find>
       <find>filter_idx</find>
       <find>fill_fil</find>
+      <find>read_imgnet_labels</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -63,6 +59,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/vgg16.py" />
         <option value="$PROJECT_DIR$/deconv_vgg16.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/deconv_vgg16_full.py" />
       </list>
     </option>
   </component>
@@ -102,11 +100,6 @@
               <item name="tensorflow-vgg" type="b2602c69:ProjectViewProjectNode" />
               <item name="tensorflow-vgg" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="tensorflow-vgg" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tensorflow-vgg" type="462c0819:PsiDirectoryNode" />
-              <item name="test_data" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -116,6 +109,12 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Dev/TSNN" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/lib/data" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -181,21 +180,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/s0/data/run3/deconv52.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/s0/data/run3/deconv84.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/s0/data/run3/deconv126.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/s0/data/run3/deconv124.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -442,10 +426,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deconv_vgg16.py">
+    <entry file="file://$PROJECT_DIR$/test_vgg16.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="53" column="4" lean-forward="false" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/data/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="303" column="0" lean-forward="false" selection-start-line="303" selection-start-column="0" selection-end-line="317" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1494">
+          <caret line="83" column="15" lean-forward="false" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deconv_vgg16_full.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="55" column="26" lean-forward="false" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

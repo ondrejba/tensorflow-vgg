@@ -67,6 +67,21 @@ def test():
     img = skimage.transform.resize(img, (ny, nx))
     skimage.io.imsave("./test_data/test/output.jpg", img)
 
+def read_imgnet_labels(path):
+  """
+  Read and parse ILSVRC validation labels.
+  :param path:    Path to the labels text fi;e/
+  :return:        Parsed labels.
+  """
+
+  with open(path, "r") as f:
+    content = f.readlines()
+
+  content = [x.strip() for x in content]
+  content = sorted(content)
+  labels = [int(x.split(" ")[1]) for x in content]
+
+  return labels
 
 if __name__ == "__main__":
     test()
