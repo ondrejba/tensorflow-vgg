@@ -37,7 +37,7 @@ filter_idx = tf.placeholder(tf.int32)
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-activations = tf.get_default_graph().get_operation_by_name("conv5_3/Conv2D").outputs[0]
+activations = tf.get_default_graph().get_operation_by_name("conv3_3/Conv2D").outputs[0]
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
 
