@@ -79,6 +79,7 @@ with tf.Session() as sess:
                 img_val *= 255
 
                 img_path = os.path.join(run_dir, str(cls), "layer{}.jpg".format(layer_idx))
+                print(img_path)
                 cv2.imwrite(img_path, img_val)
 
             class_counts[cls] += 1
