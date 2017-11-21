@@ -80,17 +80,16 @@ class Vgg16:
         self.data_dict = None
         print(("build model finished: %ds" % (time.time() - start_time)))
 
-    def debuild(self, activations, filter_idx):
+    def debuild(self, filter_idx):
 
         deconv_gates = {
             layer: tf.placeholder(dtype=tf.bool, name="{}-deconv-gate".format(layer)) for layer in
             ["pool5", "conv5_3", "conv5_2", "conv5_1", "pool4", "conv4_3", "conv4_2", "conv4_1",
              "pool3", "conv3_3", "conv3_2", "conv3_1", "pool2", "conv2_2", "conv2_1", "pool1", "conv1_2", "conv1_1"]}
 
-        activations = self.fill_filters_with_zeros(activations, filter_idx)
+        activations = self.max_pool_reverse(self.fill_filters_with_zeros(self.op_outputs("pool5/MaxPool"), filter_idx),
+                                            self.mask5)
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool5/MaxPool"),
-                                            deconv_gates["pool5"], filter_idx), self.mask5)
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_3/Conv2D"),
                                         deconv_gates["conv5_3"], filter_idx), "conv5_3/filter:0")
         activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_2/Conv2D"),

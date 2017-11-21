@@ -46,12 +46,7 @@ filter_idx = tf.placeholder(tf.int32)
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-activations, deconv_gates = tf.get_default_graph().get_operation_by_name("conv3_1/Conv2D").outputs[0]
-grad = tf.gradients(activations[..., filter_idx], images, grad_ys=activations[..., filter_idx])[0]
-
-num_frames = activations.shape[-1].value
-deconv_img = vgg.debuild(activations, filter_idx)
-
+deconv_img, deconv_gates = vgg.debuild(filter_idx)
 
 with tf.Session() as sess:
 
@@ -67,7 +62,7 @@ with tf.Session() as sess:
            filter_idx: 0
         }
         open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
-        
+
         img_val = sess.run(deconv_img, feed_dict=feed_dict)
         img_val = img_val[0]
         img_val = z_norm(img_val)
