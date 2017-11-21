@@ -41,12 +41,11 @@ img = utils.load_image("./test_data/tiger.jpeg")
 batch = img.reshape((1, 224, 224, 3))
 
 images = tf.placeholder(tf.float32, [1, 224, 224, 3])
-filter_idx = tf.placeholder(tf.int32)
 
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-deconv_img, deconv_gates = vgg.debuild(filter_idx)
+deconv_img, deconv_gates = vgg.debuild()
 
 with tf.Session() as sess:
 
@@ -59,7 +58,6 @@ with tf.Session() as sess:
 
         feed_dict = {
            images: batch,
-           filter_idx: 0
         }
         open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
 

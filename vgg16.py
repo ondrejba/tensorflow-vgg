@@ -80,54 +80,72 @@ class Vgg16:
         self.data_dict = None
         print(("build model finished: %ds" % (time.time() - start_time)))
 
-    def debuild(self, filter_idx):
+    def debuild(self):
 
         deconv_gates = [
             tf.placeholder(dtype=tf.bool, name="{}-deconv-gate".format(layer)) for layer in
             ['conv1_1', 'conv1_2', 'pool1', 'conv2_1', 'conv2_2', 'pool2', 'conv3_1', 'conv3_2', 'conv3_3', 'pool3',
              'conv4_1', 'conv4_2', 'conv4_3', 'pool4', 'conv5_1', 'conv5_2', 'conv5_3']]
 
-        activations = self.max_pool_reverse(self.fill_filters_with_zeros(self.op_outputs("pool5"), filter_idx),
-                                            self.mask5)
+        outputs = self.op_outputs("pool5")
+        activations = self.max_pool_reverse(
+            self.fill_filters_with_zeros(outputs, self.max_filter(outputs)), self.mask5)
 
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_3/Conv2D"),
-                                        deconv_gates[16], filter_idx), "conv5_3/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_2/Conv2D"),
-                                        deconv_gates[15], filter_idx), "conv5_2/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv5_1/Conv2D"),
-                                        deconv_gates[14], filter_idx), "conv5_1/filter:0")
+        outputs = self.op_outputs("conv5_3/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[16], self.max_filter(outputs)), "conv5_3/filter:0")
+        outputs = self.op_outputs("conv5_2/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[15], self.max_filter(outputs)), "conv5_2/filter:0")
+        outputs = self.op_outputs("conv5_1/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[14], self.max_filter(outputs)), "conv5_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool4"),
-                                            deconv_gates[13], filter_idx), self.mask4)
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv4_3/Conv2D"),
-                                        deconv_gates[12], filter_idx), "conv4_3/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv4_2/Conv2D"),
-                                        deconv_gates[11], filter_idx), "conv4_2/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv4_1/Conv2D"),
-                                        deconv_gates[10], filter_idx), "conv4_1/filter:0")
+        outputs = self.op_outputs("pool4")
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, outputs,
+                                            deconv_gates[13], self.max_filter(outputs)), self.mask4)
+        outputs = self.op_outputs("conv4_3/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[12], self.max_filter(outputs)), "conv4_3/filter:0")
+        outputs = self.op_outputs("conv4_2/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[11], self.max_filter(outputs)), "conv4_2/filter:0")
+        outputs = self.op_outputs("conv4_1/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[10], self.max_filter(outputs)), "conv4_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool3"),
-                                        deconv_gates[9], filter_idx), self.mask3)
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv3_3/Conv2D"),
-                                        deconv_gates[8], filter_idx), "conv3_3/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv3_2/Conv2D"),
-                                        deconv_gates[7], filter_idx), "conv3_2/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv3_1/Conv2D"),
-                                        deconv_gates[6], filter_idx), "conv3_1/filter:0")
+        outputs = self.op_outputs("pool3")
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[9], self.max_filter(outputs)), self.mask3)
+        outputs = self.op_outputs("conv3_3/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[8], self.max_filter(outputs)), "conv3_3/filter:0")
+        outputs = self.op_outputs("conv3_2/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[7], self.max_filter(outputs)), "conv3_2/filter:0")
+        outputs = self.op_outputs("conv3_1/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[6], self.max_filter(outputs)), "conv3_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool2"),
-                                        deconv_gates[5], filter_idx), self.mask2)
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv2_2/Conv2D"),
-                                        deconv_gates[4], filter_idx), "conv2_2/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv2_1/Conv2D"),
-                                        deconv_gates[3], filter_idx), "conv2_1/filter:0")
+        outputs = self.op_outputs("pool2")
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[5], self.max_filter(outputs)), self.mask2)
+        outputs = self.op_outputs("conv2_2/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[4], self.max_filter(outputs)), "conv2_2/filter:0")
+        outputs = self.op_outputs("conv2_1/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[3], self.max_filter(outputs)), "conv2_1/filter:0")
 
-        activations = self.max_pool_reverse(self.debuild_interlayer(activations, self.op_outputs("pool1"),
-                                        deconv_gates[2], filter_idx), self.mask1)
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv1_2/Conv2D"),
-                                        deconv_gates[1], filter_idx), "conv1_2/filter:0")
-        activations = self.conv_reverse(self.debuild_interlayer(activations, self.op_outputs("conv1_1/Conv2D"),
-                                        deconv_gates[0], filter_idx), "conv1_1/filter:0")
+        outputs = self.op_outputs("pool1")
+        activations = self.max_pool_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[2], self.max_filter(outputs)), self.mask1)
+        outputs = self.op_outputs("conv1_2/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[1], self.max_filter(outputs)), "conv1_2/filter:0")
+        outputs = self.op_outputs("conv1_1/Conv2D")
+        activations = self.conv_reverse(self.debuild_interlayer(activations, outputs,
+                                        deconv_gates[0], self.max_filter(outputs)), "conv1_1/filter:0")
 
         return activations, deconv_gates
 
@@ -138,6 +156,9 @@ class Vgg16:
 
     def op_outputs(self, name):
         return tf.get_default_graph().get_operation_by_name(name).outputs[0]
+
+    def max_filter(self, values):
+        return tf.argmax(tf.reduce_mean(values, axis=(0, 1, 2)), axis=0)
 
     def avg_pool(self, bottom, name):
         return tf.nn.avg_pool(bottom, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME', name=name)
