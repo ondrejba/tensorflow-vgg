@@ -158,7 +158,7 @@ class Vgg16:
         return tf.get_default_graph().get_operation_by_name(name).outputs[0]
 
     def max_filter(self, values):
-        return tf.argmax(tf.reduce_mean(values, axis=(0, 1, 2)), axis=0)
+        return tf.cast(tf.argmax(tf.reduce_mean(values, axis=(0, 1, 2)), axis=0), tf.int32)
 
     def avg_pool(self, bottom, name):
         return tf.nn.avg_pool(bottom, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME', name=name)
