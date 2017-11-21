@@ -55,7 +55,7 @@ with tf.Session() as sess:
       filter_idx: 0
     }
 
-    for layer_idx in range(deconv_gates):
+    for layer_idx in range(len(deconv_gates)):
 
         feed_dict = {
            images: batch,
