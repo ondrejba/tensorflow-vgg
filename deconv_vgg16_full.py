@@ -68,7 +68,7 @@ with tf.Session() as sess:
             img = utils.load_image(img_path)
 
             orig_path = os.path.join(img_dir, "orig.jpg")
-            cv2.imwrite(orig_path, img)
+            cv2.imwrite(orig_path, img / 255)
 
             batch = img.reshape((1, 224, 224, 3))
 
