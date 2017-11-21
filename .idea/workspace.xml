@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2719d38c-18eb-42da-949b-243f96b2a3a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ILSVRC12_val_data.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ILSVRC12_classes" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/ILSVRC12_val_data" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -97,6 +98,11 @@
             <path>
               <item name="tensorflow-vgg" type="b2602c69:ProjectViewProjectNode" />
               <item name="tensorflow-vgg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tensorflow-vgg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tensorflow-vgg" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
