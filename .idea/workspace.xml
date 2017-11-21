@@ -4,7 +4,6 @@
     <list default="true" id="2719d38c-18eb-42da-949b-243f96b2a3a9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deconv_vgg16.py" afterPath="$PROJECT_DIR$/deconv_vgg16.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vgg16.py" afterPath="$PROJECT_DIR$/vgg16.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +17,8 @@
       <file leaf-file-name="deconv_vgg16.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deconv_vgg16.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="39" column="67" lean-forward="false" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
+            <state relative-caret-position="833">
+              <caret line="54" column="28" lean-forward="false" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -30,7 +29,7 @@
       <file leaf-file-name="vgg16.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vgg16.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="658">
+            <state relative-caret-position="1684">
               <caret line="99" column="61" lean-forward="false" selection-start-line="99" selection-start-column="54" selection-end-line="99" selection-end-column="61" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
@@ -430,7 +429,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vgg16.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
+        <state relative-caret-position="1684">
           <caret line="99" column="61" lean-forward="false" selection-start-line="99" selection-start-column="54" selection-end-line="99" selection-end-column="61" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -440,8 +439,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deconv_vgg16.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="39" column="67" lean-forward="false" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
+        <state relative-caret-position="833">
+          <caret line="54" column="28" lean-forward="false" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

@@ -38,6 +38,8 @@ vgg = vgg16.Vgg16()
 vgg.build(images)
 
 activations = tf.get_default_graph().get_operation_by_name("conv3_1/Conv2D").outputs[0]
+grad = tf.gradients(activations[..., filter_idx], images)
+
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
 
@@ -48,6 +50,9 @@ with tf.Session() as sess:
           images: batch,
           filter_idx: idx
         }
+
+        grad_val = sess.run(grad, feed_dict=feed_dict)
+        print(grad_val.shape)
 
         img_val = sess.run(deconv_img, feed_dict=feed_dict)
         img_val = img_val[0]
