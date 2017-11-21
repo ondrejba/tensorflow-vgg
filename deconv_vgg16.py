@@ -50,8 +50,7 @@ deconv_img, deconv_gates = vgg.debuild()
 with tf.Session() as sess:
 
     feed_dict = {
-      images: batch,
-      filter_idx: 0
+      images: batch
     }
 
     for layer_idx in range(len(deconv_gates)):
