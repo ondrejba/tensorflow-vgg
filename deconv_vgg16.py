@@ -22,6 +22,8 @@ def new_run_dir(base):
     else:
       idx += 1
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
 base_dir = "data"
 run_dir = new_run_dir(base_dir)
 
@@ -39,19 +41,18 @@ activations = tf.get_default_graph().get_operation_by_name("conv5_3/Conv2D").out
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
 
-with tf.device('/cpu:0'):
-    with tf.Session() as sess:
+with tf.Session() as sess:
 
-        for idx in range(num_frames):
-            feed_dict = {
-              images: batch,
-              filter_idx: idx
-            }
+    for idx in range(num_frames):
+        feed_dict = {
+          images: batch,
+          filter_idx: idx
+        }
 
-            img_val = sess.run(deconv_img, feed_dict=feed_dict)
-            img_val = img_val[0]
-            img_val = z_norm(img_val)
-            img_val = np.clip(img_val, 0, 1)
-            img_val *= 255
+        img_val = sess.run(deconv_img, feed_dict=feed_dict)
+        img_val = img_val[0]
+        img_val = z_norm(img_val)
+        img_val = np.clip(img_val, 0, 1)
+        img_val *= 255
 
-            cv2.imwrite(os.path.join(run_dir, "deconv{}.jpg".format(idx)), img_val)
+        cv2.imwrite(os.path.join(run_dir, "deconv{}.jpg".format(idx)), img_val)
