@@ -17,6 +17,7 @@ def new_run_dir(base):
     path = os.path.join(base, "run{}".format(idx))
 
     if not os.path.isdir(path):
+      os.makedirs(path)
       return path
     else:
       idx += 1
