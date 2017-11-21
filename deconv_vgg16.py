@@ -22,6 +22,15 @@ def new_run_dir(base):
     else:
       idx += 1
 
+def open_gates_up_to_index(deconv_gates, feed_dict, idx):
+
+  for layer_idx, deconv_gate in enumerate(deconv_gates):
+
+    if layer_idx < idx:
+      feed_dict[deconv_gate] = True
+    else:
+      feed_dict[deconv_gate] = False
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 base_dir = "data"
@@ -37,31 +46,32 @@ filter_idx = tf.placeholder(tf.int32)
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-activations = tf.get_default_graph().get_operation_by_name("conv3_1/Conv2D").outputs[0]
+activations, deconv_gates = tf.get_default_graph().get_operation_by_name("conv3_1/Conv2D").outputs[0]
 grad = tf.gradients(activations[..., filter_idx], images, grad_ys=activations[..., filter_idx])[0]
 
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
 
+
 with tf.Session() as sess:
 
-    for idx in range(num_frames):
+    feed_dict = {
+      images: batch,
+      filter_idx: 0
+    }
+
+    for layer_idx in range(deconv_gates):
+
         feed_dict = {
-          images: batch,
-          filter_idx: idx
+           images: batch,
+           filter_idx: 0
         }
-
-        grad_val = sess.run(grad, feed_dict=feed_dict)
-        grad_val = grad_val[0]
-        grad_val = z_norm(grad_val)
-        grad_val = np.clip(grad_val, 0, 1)
-        grad_val *= 255
-        cv2.imwrite(os.path.join(run_dir, "grad{}.jpg".format(idx)), grad_val)
-
+        open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
+        
         img_val = sess.run(deconv_img, feed_dict=feed_dict)
         img_val = img_val[0]
         img_val = z_norm(img_val)
         img_val = np.clip(img_val, 0, 1)
         img_val *= 255
 
-        cv2.imwrite(os.path.join(run_dir, "deconv{}.jpg".format(idx)), img_val)
+        cv2.imwrite(os.path.join(run_dir, "deconv{}.jpg".format(layer_idx)), img_val)
