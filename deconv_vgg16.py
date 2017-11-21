@@ -38,8 +38,7 @@ vgg = vgg16.Vgg16()
 vgg.build(images)
 
 activations = tf.get_default_graph().get_operation_by_name("conv3_1/Conv2D").outputs[0]
-grad = tf.gradients(activations[..., filter_idx], images)
-print(grad)
+grad = tf.gradients(activations[..., filter_idx], images)[0]
 
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
@@ -53,7 +52,11 @@ with tf.Session() as sess:
         }
 
         grad_val = sess.run(grad, feed_dict=feed_dict)
-        print(grad_val.shape)
+        grad_val = grad_val[0]
+        grad_val = z_norm(grad_val)
+        grad_val = np.clip(grad_val, 0, 1)
+        grad_val *= 255
+        cv2.imwrite(os.path.join(run_dir, "grad{}.jpg".format(idx)), grad_val)
 
         img_val = sess.run(deconv_img, feed_dict=feed_dict)
         img_val = img_val[0]
