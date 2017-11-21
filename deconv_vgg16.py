@@ -38,7 +38,7 @@ vgg = vgg16.Vgg16()
 vgg.build(images)
 
 activations = tf.get_default_graph().get_operation_by_name("conv3_1/Conv2D").outputs[0]
-grad = tf.gradients(activations[..., filter_idx], images)[0]
+grad = tf.gradients(activations[..., filter_idx], images, grad_ys=activations[..., filter_idx])[0]
 
 num_frames = activations.shape[-1].value
 deconv_img = vgg.debuild(activations, filter_idx)
