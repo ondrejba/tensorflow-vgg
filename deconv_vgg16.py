@@ -49,6 +49,7 @@ with tf.device('/cpu:0'):
             }
 
             img_val = sess.run(deconv_img, feed_dict=feed_dict)
+            img_val = img_val[0]
             img_val = z_norm(img_val)
 
             cv2.imwrite(os.path.join(run_dir, "deconv{}.jpg".format(idx)), img_val)
