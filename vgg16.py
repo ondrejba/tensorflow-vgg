@@ -95,8 +95,8 @@ class Vgg16:
         #activations = self.conv_reverse(activations, "conv4_1/filter:0")
 
         #activations = self.max_pool_reverse(activations, self.mask3)
-        activations = self.conv_reverse(activations, "conv3_3/filter:0")
-        activations = self.conv_reverse(activations, "conv3_2/filter:0")
+        #activations = self.conv_reverse(activations, "conv3_3/filter:0")
+        #activations = self.conv_reverse(activations, "conv3_2/filter:0")
         activations = self.conv_reverse(activations, "conv3_1/filter:0")
 
         activations = self.max_pool_reverse(activations, self.mask2)
