@@ -40,9 +40,13 @@ deconv_img = vgg.debuild(activations, filter_idx)
 
 with tf.device('/cpu:0'):
     with tf.Session() as sess:
-        feed_dict = {images: batch}
 
         for idx in range(num_frames):
+            feed_dict = {
+              images: batch,
+              filter_idx: idx
+            }
+
             img_val = sess.run(deconv_img, feed_dict=feed_dict)
             img_val = z_norm(img_val)
 
