@@ -79,6 +79,11 @@ with tf.Session() as sess:
             img_val = img_val[0]
             img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                               spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+
+            print(spatial_idx)
+            print(img_val.shape)
+            print()
+
             img_val = z_norm(img_val)
             img_val = np.clip(img_val, 0, 1)
             img_val *= 255
