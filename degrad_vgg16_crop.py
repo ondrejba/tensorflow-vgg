@@ -48,7 +48,7 @@ images = tf.placeholder(tf.float32, [1, 224, 224, 3])
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-degrad_img, mask_indexes = vgg.debuild_crop(use_biases=True, mask=False)
+degrad_img, mask_indexes = vgg.degrad_crop(images)
 
 
 with tf.Session() as sess:
