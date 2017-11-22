@@ -72,7 +72,7 @@ with tf.Session() as sess:
 
             receptive_field = mask_indexes[layer_idx][0]
             spatial_idx = mask_indexes_val[0]
-            spatial_idx = np.clip(spatial_idx, receptive_field, 224 - receptive_field)
+            spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
             #spatial_idx *= receptive_field
 
             filter_idx = mask_indexes_val[1]
