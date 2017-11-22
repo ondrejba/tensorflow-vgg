@@ -7,6 +7,7 @@ import time
 
 VGG_MEAN = [103.939, 116.779, 123.68]
 
+import utils
 
 class Vgg16:
     def __init__(self, vgg16_npy_path=None):
@@ -251,6 +252,12 @@ class Vgg16:
                        false_fn=lambda: self.mask_max_crop(activation, receptive_field), strict=True)
 
     def mask_max_crop(self, activations, receptive_field):
+
+        avg_activations = tf.layers.average_pooling2d(activations, [receptive_field, receptive_field], [1, 1],
+                                                      padding="SAME")
+        spatial_argmax = utils.argmax_2d(avg_activations)
+        print(spatial_argmax)
+
         return activations
 
     def op_outputs(self, name):

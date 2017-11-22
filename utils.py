@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+import tensorflow as tf
 
 # synset = [l.strip() for l in open('synset.txt').readlines()]
 
@@ -66,20 +66,35 @@ def test():
     skimage.io.imsave("./test_data/test/output.jpg", img)
 
 def read_imgnet_labels(path):
-  """
-  Read and parse ILSVRC validation labels.
-  :param path:    Path to the labels text fi;e/
-  :return:        Parsed labels.
-  """
+      """
+      Read and parse ILSVRC validation labels.
+      :param path:    Path to the labels text fi;e/
+      :return:        Parsed labels.
+      """
 
-  with open(path, "r") as f:
-    content = f.readlines()
+      with open(path, "r") as f:
+        content = f.readlines()
 
-  content = [x.strip() for x in content]
-  content = sorted(content)
-  labels = [int(x.split(" ")[1]) for x in content]
+      content = [x.strip() for x in content]
+      content = sorted(content)
+      labels = [int(x.split(" ")[1]) for x in content]
 
-  return labels
+      return labels
+
+def argmax_2d(tensor):
+
+      assert rank(tensor) == 4
+
+      flat_tensor = tf.reshape(tensor, (tf.shape(tensor)[0], -1, tf.shape(tensor)[3]))
+      argmax = tf.cast(tf.argmax(flat_tensor, axis=1), tf.int32)
+
+      argmax_x = argmax // tf.shape(tensor)[2]
+      argmax_y = argmax % tf.shape(tensor)[2]
+
+      return tf.stack((argmax_x, argmax_y), axis=1)
+
+def rank(tensor):
+    return len(tensor.get_shape())
 
 if __name__ == "__main__":
     test()
