@@ -160,84 +160,84 @@ class Vgg16:
         receptive_field = 212
         outputs = self.op_outputs("pool5")
         activations = self.max_pool_reverse(
-            self.mask_max_crop(outputs, receptive_field), self.mask5)
+            self.mask_max_crop(outputs, 2), self.mask5)
 
         receptive_field = 196
         outputs = self.op_outputs("conv5_3/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[16], receptive_field), "conv5_3/filter:0")
+                                        deconv_gates[16], 3), "conv5_3/filter:0")
         receptive_field = 164
         outputs = self.op_outputs("conv5_2/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[15], receptive_field), "conv5_2/filter:0")
+                                        deconv_gates[15], 3), "conv5_2/filter:0")
         receptive_field = 132
         outputs = self.op_outputs("conv5_1/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[14], receptive_field), "conv5_1/filter:0")
+                                        deconv_gates[14], 3), "conv5_1/filter:0")
 
         receptive_field = 100
         outputs = self.op_outputs("pool4")
         activations = self.max_pool_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                            deconv_gates[13], receptive_field), self.mask4)
+                                            deconv_gates[13], 2), self.mask4)
         receptive_field = 92
         outputs = self.op_outputs("conv4_3/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[12], receptive_field), "conv4_3/filter:0")
+                                        deconv_gates[12], 3), "conv4_3/filter:0")
         receptive_field = 76
         outputs = self.op_outputs("conv4_2/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[11], receptive_field), "conv4_2/filter:0")
+                                        deconv_gates[11], 3), "conv4_2/filter:0")
         receptive_field = 60
         outputs = self.op_outputs("conv4_1/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[10], receptive_field), "conv4_1/filter:0")
+                                        deconv_gates[10], 3), "conv4_1/filter:0")
 
         receptive_field = 44
         outputs = self.op_outputs("pool3")
         activations = self.max_pool_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[9], receptive_field), self.mask3)
+                                        deconv_gates[9], 2), self.mask3)
         receptive_field = 40
         outputs = self.op_outputs("conv3_3/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[8], receptive_field), "conv3_3/filter:0")
+                                        deconv_gates[8], 3), "conv3_3/filter:0")
         receptive_field = 32
         outputs = self.op_outputs("conv3_2/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[7], receptive_field), "conv3_2/filter:0")
+                                        deconv_gates[7], 3), "conv3_2/filter:0")
         receptive_field = 24
         outputs = self.op_outputs("conv3_1/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[6], receptive_field), "conv3_1/filter:0")
+                                        deconv_gates[6], 3), "conv3_1/filter:0")
 
         receptive_field = 16
         outputs = self.op_outputs("pool2")
         activations = self.max_pool_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[5], receptive_field), self.mask2)
+                                        deconv_gates[5], 2), self.mask2)
 
         receptive_field = 14
         outputs = self.op_outputs("conv2_2/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[4], receptive_field), "conv2_2/filter:0")
+                                        deconv_gates[4], 3), "conv2_2/filter:0")
 
         receptive_field = 10
         outputs = self.op_outputs("conv2_1/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[3], receptive_field), "conv2_1/filter:0")
+                                        deconv_gates[3], 3), "conv2_1/filter:0")
 
         receptive_field = 6
         outputs = self.op_outputs("pool1")
         activations = self.max_pool_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[2], receptive_field), self.mask1)
+                                        deconv_gates[2], 2), self.mask1)
 
         receptive_field = 5
         outputs = self.op_outputs("conv1_2/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[1], receptive_field), "conv1_2/filter:0")
+                                        deconv_gates[1], 3), "conv1_2/filter:0")
 
         receptive_field = 3
         outputs = self.op_outputs("conv1_1/Conv2D")
         activations = self.conv_reverse(self.debuild_interlayer_crop(activations, outputs,
-                                        deconv_gates[0], receptive_field), "conv1_1/filter:0")
+                                        deconv_gates[0], 3), "conv1_1/filter:0")
 
         return activations, deconv_gates
 
