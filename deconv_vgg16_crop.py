@@ -48,4 +48,4 @@ images = tf.placeholder(tf.float32, [1, 224, 224, 3])
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-deconv_img, deconv_gates = vgg.debuild_crop()
+deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop()
