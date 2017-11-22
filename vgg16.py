@@ -296,7 +296,7 @@ class Vgg16:
         activations = self.conv_reverse(masked, "conv1_1/filter:0", biases_name="conv1_1/biases:0",
                                         use_biases=use_biases)
 
-        mask_indexes = list(sorted(mask_indexes))
+        mask_indexes = list(reversed(mask_indexes))
 
         return activations, deconv_gates, mask_indexes
 
@@ -400,8 +400,8 @@ class Vgg16:
         mask_indexes.append((receptive_field, idxs, filter_idx))
         outputs_list.append(outputs)
 
-        mask_indexes = list(sorted(mask_indexes))
-        outputs_list = list(sorted(outputs_list))
+        mask_indexes = list(reversed(mask_indexes))
+        outputs_list = list(reversed(outputs_list))
 
         return outputs_list, mask_indexes
 
