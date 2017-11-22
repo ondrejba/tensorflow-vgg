@@ -300,7 +300,7 @@ class Vgg16:
         depth = activations.shape[3].value
 
         crop_location = spatial_argmax[..., depth_argmax]
-        crop_location = tf.concat((tf.clip_by_value(crop_location[0], clip_value_min=math.ceil(receptive_field / 2),
+        crop_location = tf.stack((tf.clip_by_value(crop_location[0], clip_value_min=math.ceil(receptive_field / 2),
                                          clip_value_max=height - math.floor(receptive_field / 2)),
                                    tf.clip_by_value(crop_location[1], clip_value_min=math.ceil(receptive_field / 2),
                                          clip_value_max=width - math.floor(receptive_field / 2))), axis=0)
