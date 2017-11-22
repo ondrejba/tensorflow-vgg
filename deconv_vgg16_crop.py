@@ -103,4 +103,4 @@ with tf.Session() as sess:
 
             img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                            spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
-            cv2.imwrite(orig_path, img * 255)
+            cv2.imwrite(orig_path, img_crop * 255)
