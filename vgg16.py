@@ -160,113 +160,113 @@ class Vgg16:
         # BLOCK 5
         receptive_field = 212
         outputs = self.op_outputs("pool5")
-        masked, idxs, filter_idx = self.mask_max_crop(outputs, 2)
+        masked, idxs, filter_idx = self.mask_max_crop(outputs)
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask5)
 
         receptive_field = 196
         outputs = self.op_outputs("conv5_3/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[16], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[16])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv5_3/filter:0")
 
         receptive_field = 164
         outputs = self.op_outputs("conv5_2/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[15], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[15])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv5_2/filter:0")
 
         receptive_field = 132
         outputs = self.op_outputs("conv5_1/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[14], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[14])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv5_1/filter:0")
 
         # BLOCK 4
         receptive_field = 100
         outputs = self.op_outputs("pool4")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[13], 2)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[13])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask4)
 
         receptive_field = 92
         outputs = self.op_outputs("conv4_3/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[12], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[12])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv4_3/filter:0")
 
         receptive_field = 76
         outputs = self.op_outputs("conv4_2/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[11], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[11])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv4_2/filter:0")
 
         receptive_field = 60
         outputs = self.op_outputs("conv4_1/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[10], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[10])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv4_1/filter:0")
 
         # BLOCK 3
         receptive_field = 44
         outputs = self.op_outputs("pool3")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[9], 2)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[9])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask3)
 
         receptive_field = 40
         outputs = self.op_outputs("conv3_3/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[8], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[8])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv3_3/filter:0")
 
         receptive_field = 32
         outputs = self.op_outputs("conv3_2/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[7], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[7])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv3_2/filter:0")
 
         receptive_field = 24
         outputs = self.op_outputs("conv3_1/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[6], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[6])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv3_1/filter:0")
 
         # BLOCK 2
         receptive_field = 16
         outputs = self.op_outputs("pool2")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[5], 2)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[5])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask2)
 
         receptive_field = 14
         outputs = self.op_outputs("conv2_2/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[4], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[4])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv2_2/filter:0")
 
         receptive_field = 10
         outputs = self.op_outputs("conv2_1/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[3], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[3])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv2_1/filter:0")
 
         # BLOCK 1
         receptive_field = 6
         outputs = self.op_outputs("pool1")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[2], 2)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[2])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask1)
 
         receptive_field = 5
         outputs = self.op_outputs("conv1_2/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[1], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[1])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv1_2/filter:0")
 
         receptive_field = 3
         outputs = self.op_outputs("conv1_1/Conv2D")
-        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[0], 3)
+        masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[0])
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv1_1/filter:0")
 
@@ -279,41 +279,28 @@ class Vgg16:
         return tf.cond(deconv_gate, true_fn=lambda: deconv,
                        false_fn=lambda: self.fill_filters_with_zeros(activation, filter_idx), strict=True)
 
-    def debuild_interlayer_crop(self, deconv, activation, deconv_gate, receptive_field):
+    def debuild_interlayer_crop(self, deconv, activation, deconv_gate):
 
-        masked, idxs, filter_idx = self.mask_max_crop(activation, receptive_field)
+        masked, idxs, filter_idx = self.mask_max_crop(activation)
 
         return tf.cond(deconv_gate, true_fn=lambda: deconv,
                        false_fn=lambda: masked, strict=True), idxs, filter_idx
 
-    def mask_max_crop(self, activations, receptive_field):
+    def mask_max_crop(self, activations):
 
-        avg_activations = tf.layers.average_pooling2d(activations, [receptive_field, receptive_field], [1, 1],
-                                                      padding="SAME")
-        spatial_max = tf.reduce_max(avg_activations, axis=[0, 1, 2])
+        spatial_max = tf.reduce_max(activations, axis=[0, 1, 2])
 
         depth_argmax = tf.cast(tf.argmax(spatial_max, axis=-1), tf.int32)
-        spatial_argmax = utils.argmax_2d(avg_activations)[0]
+        spatial_argmax = utils.argmax_2d(activations)[0]
 
-        height = activations.shape[1].value
-        width = activations.shape[2].value
-        depth = activations.shape[3].value
+        mask = tf.zeros_like(activations)
+        delta = tf.SparseTensor(spatial_argmax, [1.0], tf.shape(activations))
+        mask += tf.sparse_tensor_to_dense(delta)
 
-        crop_location = spatial_argmax[..., depth_argmax]
-        crop_location = tf.stack((tf.clip_by_value(crop_location[0], clip_value_min=math.ceil(receptive_field / 2),
-                                         clip_value_max=height - math.floor(receptive_field / 2)),
-                                   tf.clip_by_value(crop_location[1], clip_value_min=math.ceil(receptive_field / 2),
-                                         clip_value_max=width - math.floor(receptive_field / 2))), axis=0)
-
-        crop_mask = utils.mask_crop(crop_location[1] - math.ceil(receptive_field / 2),
-                                    crop_location[1] + math.floor(receptive_field / 2),
-                                    crop_location[0] - math.ceil(receptive_field / 2),
-                                    crop_location[0] + math.floor(receptive_field / 2),
-                                    width, height, depth)
-        activations *= crop_mask
+        activations *= mask
         activations = self.fill_filters_with_zeros(activations, depth_argmax)
 
-        return activations, crop_location, depth_argmax
+        return activations, spatial_argmax, depth_argmax
 
     def op_outputs(self, name):
         return tf.get_default_graph().get_operation_by_name(name).outputs[0]
