@@ -299,13 +299,16 @@ class Vgg16:
         return tf.cond(deconv_gate, true_fn=lambda: deconv,
                        false_fn=lambda: masked, strict=True), idxs, filter_idx
 
-    def mask_max_crop(self, activations, original_size=224):
+    def mask_max_crop(self, activations, original_size=224, mean_filter_activation=True):
 
         ratio = int(original_size / activations.shape[1].value)
 
-        spatial_max = tf.reduce_max(activations, axis=[0, 1, 2])
+        if mean_filter_activation:
+            spatial_reduce = tf.reduce_mean(activations, axis=[0, 1, 2])
+        else:
+            spatial_reduce = tf.reduce_max(activations, axis=[0, 1, 2])
 
-        depth_argmax = tf.cast(tf.argmax(spatial_max, axis=-1), tf.int32)
+        depth_argmax = tf.cast(tf.argmax(spatial_reduce, axis=-1), tf.int32)
         spatial_argmax = utils.argmax_2d(activations)[0, :, depth_argmax]
 
         mask = tf.zeros((activations.shape[1].value, activations.shape[2].value))
