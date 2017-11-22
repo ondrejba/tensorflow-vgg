@@ -40,8 +40,8 @@
       <file leaf-file-name="vgg16.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vgg16.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="293" column="92" lean-forward="false" selection-start-line="293" selection-start-column="92" selection-end-line="293" selection-end-column="92" />
+            <state relative-caret-position="491">
+              <caret line="296" column="95" lean-forward="false" selection-start-line="296" selection-start-column="95" selection-end-line="296" selection-end-column="95" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -494,8 +494,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vgg16.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="293" column="92" lean-forward="false" selection-start-line="293" selection-start-column="92" selection-end-line="293" selection-end-column="92" />
+        <state relative-caret-position="491">
+          <caret line="296" column="95" lean-forward="false" selection-start-line="296" selection-start-column="95" selection-end-line="296" selection-end-column="95" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
           </folding>
