@@ -269,8 +269,8 @@ class Vgg16:
 
         crop_mask = utils.mask_crop(crop_location[1] - math.ceil(receptive_field / 2),
                                     crop_location[1] + math.floor(receptive_field / 2),
-                                    crop_location[2] - math.ceil(receptive_field / 2),
-                                    crop_location[2] + math.floor(receptive_field / 2),
+                                    crop_location[0] - math.ceil(receptive_field / 2),
+                                    crop_location[0] + math.floor(receptive_field / 2),
                                     width, height, depth)
         activations *= crop_mask
         activations = self.fill_filters_with_zeros(activations, depth_argmax)
