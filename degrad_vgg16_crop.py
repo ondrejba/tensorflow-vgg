@@ -48,7 +48,7 @@ images = tf.placeholder(tf.float32, [1, 224, 224, 3])
 vgg = vgg16.Vgg16()
 vgg.build(images)
 
-degrad_img, mask_indexes = vgg.degrad_crop(images)
+degrad_img, mask_indexes = vgg.degrad_crop(images, mask=True)
 
 
 with tf.Session() as sess:
@@ -74,13 +74,7 @@ with tf.Session() as sess:
 
             filter_idx = mask_indexes_val[1]
 
-            print(img_val.shape)
-
             img_val = img_val[0]
-
-            print(img_val.shape)
-            print()
-
             img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                               spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
 
