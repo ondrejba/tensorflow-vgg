@@ -258,7 +258,7 @@ class Vgg16:
         spatial_max = tf.reduce_max(avg_activations, axis=[0, 1, 2])
 
         depth_argmax = tf.argmax(spatial_max, axis=-1)
-        spatial_argmax = utils.argmax_2d(avg_activations)
+        spatial_argmax = utils.argmax_2d(avg_activations)[0]
 
         img_to_crop_location = spatial_argmax[..., depth_argmax]
         print(img_to_crop_location)
