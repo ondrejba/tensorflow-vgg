@@ -286,7 +286,9 @@ class Vgg16:
         return tf.cond(deconv_gate, true_fn=lambda: deconv,
                        false_fn=lambda: masked, strict=True), idxs, filter_idx
 
-    def mask_max_crop(self, activations):
+    def mask_max_crop(self, activations, original_size=224):
+
+        ratio = original_size / activations.shape[1].value
 
         spatial_max = tf.reduce_max(activations, axis=[0, 1, 2])
 
@@ -300,7 +302,7 @@ class Vgg16:
         activations *= tf.stack([tf.stack([mask] * activations.shape[3].value, axis=-1)], axis=0)
         activations = self.fill_filters_with_zeros(activations, depth_argmax)
 
-        return activations, spatial_argmax, depth_argmax
+        return activations, spatial_argmax * ratio, depth_argmax
 
     def op_outputs(self, name):
         return tf.get_default_graph().get_operation_by_name(name).outputs[0]
