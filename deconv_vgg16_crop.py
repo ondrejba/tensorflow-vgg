@@ -1,4 +1,4 @@
-import cv2, os, math
+import argparse, cv2, os, math
 import numpy as np
 import tensorflow as tf
 
@@ -31,76 +31,85 @@ def open_gates_up_to_index(deconv_gates, feed_dict, idx):
     else:
       feed_dict[deconv_gate] = False
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+def main(args):
+    os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-val_path = "/root/assets/ILSVRC2012_val/images"
-annotations_path="resources/ILSVRC12_val_data"
+    val_path = "/root/assets/ILSVRC2012_val/images"
+    annotations_path="resources/ILSVRC12_val_data"
 
-val_imgs = sorted(os.listdir(val_path))
-val_imgs = [os.path.join(val_path, path) for path in val_imgs]
-val_ann = utils.read_imgnet_labels(annotations_path)
+    val_imgs = sorted(os.listdir(val_path))
+    val_imgs = [os.path.join(val_path, path) for path in val_imgs]
+    val_ann = utils.read_imgnet_labels(annotations_path)
 
-base_dir = "data"
-run_dir = new_run_dir(base_dir)
+    base_dir = "data"
+    run_dir = new_run_dir(base_dir)
 
-images = tf.placeholder(tf.float32, [1, 224, 224, 3])
+    images = tf.placeholder(tf.float32, [1, 224, 224, 3])
 
-vgg = vgg16.Vgg16()
-vgg.build(images)
+    vgg = vgg16.Vgg16()
+    vgg.build(images)
 
-deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=True, mask=False)
+    deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=True, mask=args.mask)
 
 
-with tf.Session() as sess:
+    with tf.Session() as sess:
 
-    for img_idx, img_path in enumerate(val_imgs):
+        for img_idx, img_path in enumerate(val_imgs):
 
-        cls = val_ann[img_idx]
+            if img_idx >= 10000:
+                break
 
-        img = utils.load_image(img_path)
-        batch = img.reshape((1, 224, 224, 3))
+            img = utils.load_image(img_path)
+            batch = img.reshape((1, 224, 224, 3))
 
-        for layer_idx in range(len(deconv_gates)):
+            for layer_idx in range(len(deconv_gates)):
 
-            feed_dict = {
-               images: batch,
-            }
+                feed_dict = {
+                   images: batch,
+                }
 
-            open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
+                open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
 
-            img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
+                img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
 
-            receptive_field = mask_indexes[layer_idx][0]
-            spatial_idx = mask_indexes_val[0]
-            spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
+                receptive_field = mask_indexes[layer_idx][0]
+                spatial_idx = mask_indexes_val[0]
+                spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
 
-            filter_idx = mask_indexes_val[1]
+                filter_idx = mask_indexes_val[1]
 
-            img_val = img_val[0]
-            img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
-                              spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+                img_val = img_val[0]
+                img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
+                                  spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
 
-            img_val = z_norm(img_val)
-            img_val = np.clip(img_val, 0, 1)
-            img_val *= 255
+                img_val = z_norm(img_val)
+                img_val = np.clip(img_val, 0, 1)
+                img_val *= 255
 
-            save_dir = os.path.join(run_dir, "layer{}".format(layer_idx), "filter{}".format(filter_idx))
+                save_dir = os.path.join(run_dir, "layer{}".format(layer_idx), "filter{}".format(filter_idx))
 
-            if not os.path.isdir(save_dir):
-                os.makedirs(save_dir)
+                if not os.path.isdir(save_dir):
+                    os.makedirs(save_dir)
 
-            i = 0
-            while True:
-                save_path = os.path.join(save_dir, "{}.jpg".format(i))
-                orig_path = os.path.join(save_dir, "{}_orig.jpg".format(i))
+                i = 0
+                while True:
+                    save_path = os.path.join(save_dir, "{}.jpg".format(i))
+                    orig_path = os.path.join(save_dir, "{}_orig.jpg".format(i))
 
-                if not os.path.isfile(save_path):
-                    break
-                else:
-                    i += 1
+                    if not os.path.isfile(save_path):
+                        break
+                    else:
+                        i += 1
 
-            cv2.imwrite(save_path, img_val)
+                cv2.imwrite(save_path, img_val)
 
-            img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
-                           spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
-            cv2.imwrite(orig_path, img_crop * 255)
+                img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
+                               spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+                cv2.imwrite(orig_path, img_crop * 255)
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("--mask", default=False, action="store_true")
+
+parsed = parser.parse_args()
+main(parsed)
