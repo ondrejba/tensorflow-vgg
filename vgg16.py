@@ -431,7 +431,6 @@ class Vgg16:
 
         ratio = int(original_size / outputs.shape[1].value)
         spatial_argmax = utils.argmax_2d(outputs)[0, :, depth_argmax]
-        spatial_argmax = tf.multiply(spatial_argmax, ratio)
 
         if mask:
             mask = tf.zeros((outputs.shape[1].value, outputs.shape[2].value))
@@ -441,6 +440,7 @@ class Vgg16:
             outputs = tf.multiply(outputs, tf.cast(tf.stack([tf.stack([mask] * outputs.shape[3].value, axis=-1)], axis=0), tf.float32))
 
         grads = tf.gradients(outputs[..., depth_argmax], input_tensor, outputs[..., depth_argmax])[0]
+        spatial_argmax = tf.multiply(spatial_argmax, ratio)
 
         return grads, spatial_argmax, depth_argmax
 
