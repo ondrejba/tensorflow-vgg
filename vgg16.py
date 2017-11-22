@@ -381,12 +381,13 @@ class Vgg16:
         output_shape = (input_shape[0].value, input_shape[1].value * stride, input_shape[2].value * stride,
                         conv1_weights.shape[2].value)
 
-        output = tf.nn.conv2d_transpose(activations, conv1_weights, output_shape, (1, stride, stride, 1),
-                                      padding="SAME", name="DeConv2D")
-
         if use_biases:
             biases = tf.get_default_graph().get_tensor_by_name(biases_name)
-            output += biases
+            activations -= biases
+
+
+        output = tf.nn.conv2d_transpose(activations, conv1_weights, output_shape, (1, stride, stride, 1),
+                                      padding="SAME", name="DeConv2D")
 
         return output
 
