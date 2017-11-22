@@ -49,3 +49,41 @@ vgg = vgg16.Vgg16()
 vgg.build(images)
 
 deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop()
+
+
+with tf.Session() as sess:
+
+    for img_idx, img_path in enumerate(val_imgs):
+
+        cls = val_ann[img_idx]
+
+        img = utils.load_image(img_path)
+        batch = img.reshape((1, 224, 224, 3))
+
+        for layer_idx in range(len(deconv_gates)):
+
+            feed_dict = {
+               images: batch,
+            }
+
+            open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
+
+            img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
+            img_val = img_val[0]
+            img_val = z_norm(img_val)
+            img_val = np.clip(img_val, 0, 1)
+            img_val *= 255
+
+            save_dir = os.path.join(run_dir, "layer{}".format(layer_idx), "filter{}".format(mask_indexes_val[1]))
+
+            if not os.path.isdir(save_dir):
+                os.makedirs(save_dir)
+
+            i = 0
+            while True:
+                save_path = os.path.join(save_dir, "{}.jpg".format(i))
+
+                if not os.path.isfile(save_path):
+                    break
+
+            cv2.imwrite(save_path, img_val)
