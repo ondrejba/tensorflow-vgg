@@ -254,9 +254,14 @@ class Vgg16:
     def mask_max_crop(self, activations, receptive_field):
 
         avg_activations = tf.layers.average_pooling2d(activations, [receptive_field, receptive_field], [1, 1],
-                                                      padding="SAME")
+                                                      padding="VALID")
+        spatial_max = tf.reduce_max(avg_activations, axis=[0, 1, 2])
+
+        depth_argmax = tf.argmax(spatial_max, axis=-1)
         spatial_argmax = utils.argmax_2d(avg_activations)
-        print(spatial_argmax)
+
+        img_to_crop_location = spatial_argmax[..., depth_argmax]
+        print(img_to_crop_location)
 
         return activations
 
