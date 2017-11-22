@@ -85,5 +85,7 @@ with tf.Session() as sess:
 
                 if not os.path.isfile(save_path):
                     break
+                else:
+                    i += 1
 
             cv2.imwrite(save_path, img_val)
