@@ -74,11 +74,6 @@ with tf.Session() as sess:
 
             filter_idx = mask_indexes_val[1]
 
-
-            print(spatial_idx)
-            print(receptive_field)
-            print(img_val.shape)
-
             img_val = img_val[0]
 
             print(img_val.shape)

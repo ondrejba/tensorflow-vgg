@@ -428,7 +428,7 @@ class Vgg16:
 
         depth_argmax = tf.cast(tf.argmax(spatial_reduce, axis=-1), tf.int32)
 
-        grads = tf.gradients(outputs[..., depth_argmax], input_tensor, outputs[..., depth_argmax])
+        grads = tf.gradients(outputs[..., depth_argmax], input_tensor, outputs[..., depth_argmax])[0]
 
         ratio = int(original_size / outputs.shape[1].value)
         spatial_argmax = utils.argmax_2d(outputs)[0, :, depth_argmax]
