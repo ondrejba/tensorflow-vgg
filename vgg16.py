@@ -291,8 +291,7 @@ class Vgg16:
         spatial_max = tf.reduce_max(activations, axis=[0, 1, 2])
 
         depth_argmax = tf.cast(tf.argmax(spatial_max, axis=-1), tf.int32)
-        spatial_argmax = utils.argmax_2d(activations)[0]
-        print(spatial_argmax)
+        spatial_argmax = utils.argmax_2d(activations)[0, :, depth_argmax]
 
         mask = tf.zeros_like(activations)
         delta = tf.SparseTensor(spatial_argmax, [1.0], tf.shape(activations))
