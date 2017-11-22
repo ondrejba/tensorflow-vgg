@@ -295,13 +295,15 @@ class Vgg16:
         depth_argmax = tf.cast(tf.argmax(spatial_max, axis=-1), tf.int32)
         spatial_argmax = utils.argmax_2d(avg_activations)[0]
 
-        crop_location = spatial_argmax[..., depth_argmax]
-        crop_location = tf.clip_by_value(crop_location, clip_value_min=math.ceil(receptive_field / 2),
-                                         clip_value_max=math.floor(receptive_field / 2))
-
         height = activations.shape[1].value
         width = activations.shape[2].value
         depth = activations.shape[3].value
+
+        crop_location = spatial_argmax[..., depth_argmax]
+        crop_location = tf.concat((tf.clip_by_value(crop_location[0], clip_value_min=math.ceil(receptive_field / 2),
+                                         clip_value_max=height - math.floor(receptive_field / 2)),
+                                   tf.clip_by_value(crop_location[1], clip_value_min=math.ceil(receptive_field / 2),
+                                         clip_value_max=width - math.floor(receptive_field / 2))), axis=0)
 
         crop_mask = utils.mask_crop(crop_location[1] - math.ceil(receptive_field / 2),
                                     crop_location[1] + math.floor(receptive_field / 2),
