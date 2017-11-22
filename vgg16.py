@@ -293,7 +293,7 @@ class Vgg16:
         depth_argmax = tf.cast(tf.argmax(spatial_max, axis=-1), tf.int32)
         spatial_argmax = utils.argmax_2d(activations)[0, :, depth_argmax]
 
-        mask = tf.zeros_like(activations)
+        mask = tf.zeros((activations.shape[1].value, activations.shape[2].value))
         delta = tf.SparseTensor([tf.cast(spatial_argmax, tf.int64)], [1.0], [activations.shape[1].value, activations.shape[2].value])
         mask += tf.sparse_tensor_to_dense(delta)
 
