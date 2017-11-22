@@ -78,6 +78,7 @@ with tf.Session() as sess:
 
             print(spatial_idx)
             print(receptive_field)
+            print(img_val)
             print()
 
             img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
