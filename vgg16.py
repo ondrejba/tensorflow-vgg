@@ -256,7 +256,7 @@ class Vgg16:
                                                       padding="SAME")
         spatial_max = tf.reduce_max(avg_activations, axis=[0, 1, 2])
 
-        depth_argmax = tf.argmax(spatial_max, axis=-1)
+        depth_argmax = tf.cast(tf.argmax(spatial_max, axis=-1), tf.int32)
         spatial_argmax = utils.argmax_2d(avg_activations)[0]
 
         crop_location = spatial_argmax[..., depth_argmax]
