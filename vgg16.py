@@ -288,7 +288,7 @@ class Vgg16:
 
     def mask_max_crop(self, activations, original_size=224):
 
-        ratio = original_size / activations.shape[1].value
+        ratio = int(original_size / activations.shape[1].value)
 
         spatial_max = tf.reduce_max(activations, axis=[0, 1, 2])
 
@@ -302,7 +302,7 @@ class Vgg16:
         activations = tf.multiply(activations, tf.cast(tf.stack([tf.stack([mask] * activations.shape[3].value, axis=-1)], axis=0), tf.float32))
         activations = self.fill_filters_with_zeros(activations, depth_argmax)
 
-        spatial_argmax = tf.multiply(activations, ratio)
+        spatial_argmax = tf.multiply(spatial_argmax, ratio)
 
         return activations, spatial_argmax, depth_argmax
 
