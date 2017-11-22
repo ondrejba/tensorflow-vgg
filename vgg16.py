@@ -294,7 +294,7 @@ class Vgg16:
         spatial_argmax = utils.argmax_2d(activations)[0, :, depth_argmax]
 
         mask = tf.zeros_like(activations)
-        delta = tf.SparseTensor(tf.cast(spatial_argmax, tf.int64), [1.0], tf.shape(activations))
+        delta = tf.SparseTensor(tf.cast(spatial_argmax, tf.int64), [1.0], tf.cast(tf.shape(activations), tf.int64))
         mask += tf.sparse_tensor_to_dense(delta)
 
         activations *= mask
