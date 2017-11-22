@@ -73,7 +73,6 @@ with tf.Session() as sess:
             receptive_field = mask_indexes[layer_idx][0]
             spatial_idx = mask_indexes_val[0]
             spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
-            #spatial_idx *= receptive_field
 
             filter_idx = mask_indexes_val[1]
 
@@ -93,6 +92,7 @@ with tf.Session() as sess:
             i = 0
             while True:
                 save_path = os.path.join(save_dir, "{}.jpg".format(i))
+                orig_path = os.path.join(save_dir, "{}_orig.jpg".format(i))
 
                 if not os.path.isfile(save_path):
                     break
@@ -100,3 +100,7 @@ with tf.Session() as sess:
                     i += 1
 
             cv2.imwrite(save_path, img_val)
+
+            img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
+                           spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+            cv2.imwrite(orig_path, img * 255)
