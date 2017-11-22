@@ -149,7 +149,7 @@ class Vgg16:
 
         return activations, deconv_gates
 
-    def debuild_crop(self):
+    def debuild_crop(self, use_biases=False):
 
         deconv_gates = [
             tf.placeholder(dtype=tf.bool, name="{}-deconv-gate".format(layer)) for layer in
@@ -168,19 +168,22 @@ class Vgg16:
         outputs = self.op_outputs("conv5_3/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[16])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv5_3/filter:0")
+        activations = self.conv_reverse(masked, "conv5_3/filter:0", biases_name="conv5_3/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 164
         outputs = self.op_outputs("conv5_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[15])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv5_2/filter:0")
+        activations = self.conv_reverse(masked, "conv5_2/filter:0", biases_name="conv5_2/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 132
         outputs = self.op_outputs("conv5_1/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[14])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv5_1/filter:0")
+        activations = self.conv_reverse(masked, "conv5_1/filter:0", biases_name="conv5_1/biases:0",
+                                        use_biases=use_biases)
 
         # BLOCK 4
         receptive_field = 100
@@ -193,19 +196,22 @@ class Vgg16:
         outputs = self.op_outputs("conv4_3/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[12])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv4_3/filter:0")
+        activations = self.conv_reverse(masked, "conv4_3/filter:0", biases_name="conv4_3/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 76
         outputs = self.op_outputs("conv4_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[11])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv4_2/filter:0")
+        activations = self.conv_reverse(masked, "conv4_2/filter:0", biases_name="conv4_2/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 60
         outputs = self.op_outputs("conv4_1/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[10])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv4_1/filter:0")
+        activations = self.conv_reverse(masked, "conv4_1/filter:0", biases_name="conv4_1/biases:0",
+                                        use_biases=use_biases)
 
         # BLOCK 3
         receptive_field = 44
@@ -218,19 +224,22 @@ class Vgg16:
         outputs = self.op_outputs("conv3_3/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[8])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv3_3/filter:0")
+        activations = self.conv_reverse(masked, "conv3_3/filter:0", biases_name="conv3_3/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 32
         outputs = self.op_outputs("conv3_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[7])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv3_2/filter:0")
+        activations = self.conv_reverse(masked, "conv3_2/filter:0", biases_name="conv3_2/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 24
         outputs = self.op_outputs("conv3_1/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[6])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv3_1/filter:0")
+        activations = self.conv_reverse(masked, "conv3_1/filter:0", biases_name="conv3_1/biases:0",
+                                        use_biases=use_biases)
 
         # BLOCK 2
         receptive_field = 16
@@ -243,13 +252,15 @@ class Vgg16:
         outputs = self.op_outputs("conv2_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[4])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv2_2/filter:0")
+        activations = self.conv_reverse(masked, "conv2_2/filter:0", biases_name="conv2_2/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 10
         outputs = self.op_outputs("conv2_1/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[3])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv2_1/filter:0")
+        activations = self.conv_reverse(masked, "conv2_1/filter:0", biases_name="conv2_1/biases:0",
+                                        use_biases=use_biases)
 
         # BLOCK 1
         receptive_field = 6
@@ -262,13 +273,15 @@ class Vgg16:
         outputs = self.op_outputs("conv1_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[1])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv1_2/filter:0")
+        activations = self.conv_reverse(masked, "conv1_2/filter:0", biases_name="conv1_2/biases:0",
+                                        use_biases=use_biases)
 
         receptive_field = 3
         outputs = self.op_outputs("conv1_1/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[0])
         mask_indexes.append((receptive_field, idxs, filter_idx))
-        activations = self.conv_reverse(masked, "conv1_1/filter:0")
+        activations = self.conv_reverse(masked, "conv1_1/filter:0", biases_name="conv1_1/biases:0",
+                                        use_biases=use_biases)
 
         mask_indexes = list(sorted(mask_indexes))
 
@@ -357,7 +370,7 @@ class Vgg16:
             relu = tf.nn.relu(bias)
             return relu
 
-    def conv_reverse(self, activations, conv_weights_name, stride=1):
+    def conv_reverse(self, activations, conv_weights_name, stride=1, biases_name=None, use_biases=False):
 
         input_shape = activations.shape
 
@@ -368,8 +381,14 @@ class Vgg16:
         output_shape = (input_shape[0].value, input_shape[1].value * stride, input_shape[2].value * stride,
                         conv1_weights.shape[2].value)
 
-        return tf.nn.conv2d_transpose(activations, conv1_weights, output_shape, (1, stride, stride, 1),
+        output = tf.nn.conv2d_transpose(activations, conv1_weights, output_shape, (1, stride, stride, 1),
                                       padding="SAME", name="DeConv2D")
+
+        if use_biases:
+            biases = tf.get_default_graph().get_tensor_by_name(biases_name)
+            output += biases
+
+        return output
 
     def fc_layer(self, bottom, name):
         with tf.variable_scope(name):

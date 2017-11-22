@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2719d38c-18eb-42da-949b-243f96b2a3a9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deconv_vgg16_crop.py" afterPath="$PROJECT_DIR$/deconv_vgg16_crop.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vgg16.py" afterPath="$PROJECT_DIR$/vgg16.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +29,8 @@
       <file leaf-file-name="deconv_vgg16_crop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deconv_vgg16_crop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="851">
-              <caret line="101" column="43" lean-forward="true" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
+            <state relative-caret-position="311">
+              <caret line="50" column="73" lean-forward="false" selection-start-line="50" selection-start-column="73" selection-end-line="50" selection-end-column="73" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -40,8 +41,8 @@
       <file leaf-file-name="vgg16.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vgg16.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="291" column="0" lean-forward="true" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
+            <state relative-caret-position="612">
+              <caret line="170" column="88" lean-forward="false" selection-start-line="170" selection-start-column="88" selection-end-line="170" selection-end-column="88" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -82,6 +83,7 @@
       <find>fill_fil</find>
       <find>read_imgnet_labels</find>
       <find>'</find>
+      <find>get_bias</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -472,16 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vgg16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="291" column="0" lean-forward="true" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/deconv_vgg16_full.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
@@ -492,10 +484,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vgg16.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="170" column="88" lean-forward="false" selection-start-line="170" selection-start-column="88" selection-end-line="170" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/deconv_vgg16_crop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="851">
-          <caret line="101" column="43" lean-forward="true" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
+        <state relative-caret-position="311">
+          <caret line="50" column="73" lean-forward="false" selection-start-line="50" selection-start-column="73" selection-end-line="50" selection-end-column="73" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
