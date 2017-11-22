@@ -302,7 +302,7 @@ class Vgg16:
         activations = tf.multiply(activations, tf.cast(tf.stack([tf.stack([mask] * activations.shape[3].value, axis=-1)], axis=0), tf.float32))
         activations = self.fill_filters_with_zeros(activations, depth_argmax)
 
-        spatial_argmax = tf.multiply(spatial_argmax, ratio)
+        spatial_argmax = tf.multiply(activations, ratio)
 
         return activations, spatial_argmax, depth_argmax
 
