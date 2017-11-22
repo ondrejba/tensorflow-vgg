@@ -66,7 +66,7 @@ with tf.Session() as sess:
                images: batch,
             }
 
-            img_val, mask_indexes_val = sess.run([degrad_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
+            img_val, mask_indexes_val = sess.run([degrad_img[layer_idx], mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
 
             receptive_field = mask_indexes[layer_idx][0]
             spatial_idx = mask_indexes_val[0]
