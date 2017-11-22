@@ -69,12 +69,21 @@ with tf.Session() as sess:
             open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
 
             img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
+
+            receptive_field = mask_indexes[layer_idx][0]
+            spatial_idx = mask_indexes_val[0]
+            spatial_idx *= receptive_field
+
+            filter_idx = mask_indexes_val[1]
+
             img_val = img_val[0]
+            img_val = img_val[spatial_idx[0] - receptive_field // 2 : spatial_idx[0] + receptive_field // 2,
+                              spatial_idx[1] - receptive_field // 2 : spatial_idx[1] + receptive_field // 2]
             img_val = z_norm(img_val)
             img_val = np.clip(img_val, 0, 1)
             img_val *= 255
 
-            save_dir = os.path.join(run_dir, "layer{}".format(layer_idx), "filter{}".format(mask_indexes_val[1]))
+            save_dir = os.path.join(run_dir, "layer{}".format(layer_idx), "filter{}".format(filter_idx))
 
             if not os.path.isdir(save_dir):
                 os.makedirs(save_dir)
