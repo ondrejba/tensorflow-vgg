@@ -57,14 +57,6 @@ def load_image2(path, height=None, width=None):
         nx = img.shape[1]
     return skimage.transform.resize(img, (ny, nx))
 
-
-def test():
-    img = skimage.io.imread("./test_data/starry_night.jpg")
-    ny = 300
-    nx = img.shape[1] * ny / img.shape[0]
-    img = skimage.transform.resize(img, (ny, nx))
-    skimage.io.imsave("./test_data/test/output.jpg", img)
-
 def read_imgnet_labels(path):
       """
       Read and parse ILSVRC validation labels.
@@ -96,5 +88,16 @@ def argmax_2d(tensor):
 def rank(tensor):
     return len(tensor.get_shape())
 
-if __name__ == "__main__":
-    test()
+def mask_crop(start_x, end_x, start_y, end_y, width, height, depth):
+
+    zeros_above = tf.zeros((height - end_y, end_x - start_x, depth))
+    zeros_below = tf.zeros((start_y, end_x - start_x, depth))
+    zeros_right = tf.zeros((height, width - end_x, depth))
+    zeros_left = tf.zeros((height, start_x, depth))
+
+    ones_middle = tf.ones((end_y - start_y, end_x - start_x, depth))
+
+    mask = tf.concat([zeros_below, ones_middle, zeros_above], axis=0)
+    mask = tf.concat([zeros_left, mask, zeros_right], axis=1)
+
+    return mask

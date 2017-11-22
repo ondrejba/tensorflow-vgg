@@ -1,5 +1,4 @@
-import inspect
-import os
+import os, inspect, math
 
 import numpy as np
 import tensorflow as tf
@@ -254,14 +253,27 @@ class Vgg16:
     def mask_max_crop(self, activations, receptive_field):
 
         avg_activations = tf.layers.average_pooling2d(activations, [receptive_field, receptive_field], [1, 1],
-                                                      padding="VALID")
+                                                      padding="SAME")
         spatial_max = tf.reduce_max(avg_activations, axis=[0, 1, 2])
 
         depth_argmax = tf.argmax(spatial_max, axis=-1)
         spatial_argmax = utils.argmax_2d(avg_activations)[0]
 
-        img_to_crop_location = spatial_argmax[..., depth_argmax]
-        print(img_to_crop_location)
+        crop_location = spatial_argmax[..., depth_argmax]
+        crop_location = tf.clip_by_value(crop_location, clip_value_min=math.ceil(receptive_field / 2),
+                                         clip_value_max=math.floor(receptive_field / 2))
+
+        height = activations.shape[1].value
+        width = activations.shape[2].value
+        depth = activations.shape[3].value
+
+        crop_mask = utils.mask_crop(crop_location[1] - math.ceil(receptive_field / 2),
+                                    crop_location[1] + math.floor(receptive_field / 2),
+                                    crop_location[2] - math.ceil(receptive_field / 2),
+                                    crop_location[2] + math.floor(receptive_field / 2),
+                                    width, height, depth)
+        activations *= crop_mask
+        activations = self.fill_filters_with_zeros(activations, depth_argmax)
 
         return activations
 
