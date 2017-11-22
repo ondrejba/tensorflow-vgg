@@ -70,7 +70,7 @@ with tf.Session() as sess:
 
             img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
 
-            #receptive_field = mask_indexes[layer_idx][0]
+            receptive_field = mask_indexes[layer_idx][0]
             spatial_idx = mask_indexes_val[0]
             #spatial_idx *= receptive_field
 

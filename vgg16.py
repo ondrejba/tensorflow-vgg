@@ -302,7 +302,9 @@ class Vgg16:
         activations *= tf.stack([tf.stack([mask] * activations.shape[3].value, axis=-1)], axis=0)
         activations = self.fill_filters_with_zeros(activations, depth_argmax)
 
-        return activations, spatial_argmax * ratio, depth_argmax
+        spatial_argmax = tf.multiply(spatial_argmax, ratio)
+
+        return activations, spatial_argmax, depth_argmax
 
     def op_outputs(self, name):
         return tf.get_default_graph().get_operation_by_name(name).outputs[0]
