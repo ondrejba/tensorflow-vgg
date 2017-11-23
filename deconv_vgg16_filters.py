@@ -93,6 +93,7 @@ def main(args):
                     if max_filter_reduces[layer_idx][idx] < filter_value:
 
                         filters_to_deconv[layer_idx].append(filters[layer_idx][idx])
+                        max_filter_reduces[layer_idx][idx] = filter_value
 
             print(filters_to_deconv)
 
