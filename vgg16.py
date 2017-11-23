@@ -438,7 +438,7 @@ class Vgg16:
             mask += tf.sparse_tensor_to_dense(delta)
             print(mask)
 
-            outputs = tf.multiply(outputs, tf.cast(tf.stack([tf.stack([mask] * outputs.shape[3].value, axis=-1)], axis=0), tf.float32))
+            outputs = tf.multiply(outputs, tf.cast(tf.stack([tf.stack([mask for _ in range(outputs.shape[3].value)], axis=-1)], axis=0), tf.float32))
             print(outputs)
 
         grads = tf.gradients(outputs[..., depth_argmax], input_tensor, outputs[..., depth_argmax])[0]
