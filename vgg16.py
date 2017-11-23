@@ -695,6 +695,11 @@ class Vgg16:
         return zeros
 
     def get_conv_filter(self, name):
+
+        print(name)
+        print(self.data_dict[name][0].shape[-1])
+        print()
+
         return tf.constant(self.data_dict[name][0], name="filter")
 
     def get_bias(self, name):
