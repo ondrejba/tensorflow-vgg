@@ -94,7 +94,7 @@ def main(args):
                         max_filter_reduces[layer_idx][idx] = filter_value
 
 
-            for layer_idx, filters_list in filters_to_deconv:
+            for layer_idx, filters_list in filters_to_deconv.items():
 
                 for filter_idx in filters_list:
 
