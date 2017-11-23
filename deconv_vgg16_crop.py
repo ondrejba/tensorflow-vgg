@@ -49,7 +49,7 @@ def main(args):
     vgg = vgg16.Vgg16()
     vgg.build(images)
 
-    deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=True, mask=args.mask)
+    deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask)
 
 
     with tf.Session() as sess:
@@ -110,6 +110,7 @@ def main(args):
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--mask", default=False, action="store_true")
+parser.add_argument("--bias", default=False, action="store_true")
 
 parsed = parser.parse_args()
 main(parsed)

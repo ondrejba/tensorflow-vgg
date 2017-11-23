@@ -2,11 +2,73 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2719d38c-18eb-42da-949b-243f96b2a3a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/deconv_vgg16_filters.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sample_filters.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv0.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv10.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv11.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv12.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv13.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv14.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv15.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv16.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv17.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv18.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv19.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv20.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv21.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv22.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv23.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv24.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv25.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv26.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv27.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv28.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv29.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv30.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv31.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv32.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv33.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv34.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv35.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv36.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv37.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv38.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv39.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv40.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv41.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv42.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv43.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv44.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv45.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv46.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv47.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv48.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv49.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv5.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv50.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv51.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv52.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv53.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv54.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv55.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv56.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv57.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv58.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv59.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv6.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv60.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv61.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv62.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv63.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv7.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv8.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/s0/data/run1/deconv9.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/tensorflow-vgg.iml" afterPath="$PROJECT_DIR$/.idea/tensorflow-vgg.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deconv_vgg16_crop.py" afterPath="$PROJECT_DIR$/deconv_vgg16_crop.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/degrad_vgg16_crop.py" afterPath="$PROJECT_DIR$/degrad_vgg16_crop.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,7 +78,30 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="deconv_vgg16_crop.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/deconv_vgg16_crop.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="74" column="60" lean-forward="false" selection-start-line="74" selection-start-column="60" selection-end-line="74" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -40,15 +125,15 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/sync_data.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/deconv_vgg16.py" />
         <option value="$PROJECT_DIR$/deconv_vgg16_full.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/tests/test_utils.py" />
         <option value="$PROJECT_DIR$/vgg16.py" />
         <option value="$PROJECT_DIR$/sample_filters.py" />
-        <option value="$PROJECT_DIR$/deconv_vgg16_crop.py" />
         <option value="$PROJECT_DIR$/degrad_vgg16_crop.py" />
+        <option value="$PROJECT_DIR$/deconv_vgg16_crop.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -94,8 +179,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -135,7 +220,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1600" height="873" extended-state="6" />
+    <frame x="0" y="27" width="1920" height="1173" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -144,7 +230,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20875" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20833333" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -215,13 +301,6 @@
     <entry file="file://$PROJECT_DIR$/data/s0/data/run3/deconv23.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/s0/data/run4/deconv0.jpg">
@@ -388,9 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -408,9 +484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
           <caret line="70" column="12" lean-forward="false" selection-start-line="70" selection-start-column="12" selection-end-line="70" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -428,7 +501,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -436,17 +508,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="569">
           <caret line="32" column="79" lean-forward="true" selection-start-line="32" selection-start-column="79" selection-end-line="32" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deconv_vgg16_crop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -454,7 +515,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -462,9 +522,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="59" column="16" lean-forward="false" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deconv_vgg16_crop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="74" column="60" lean-forward="false" selection-start-line="74" selection-start-column="60" selection-end-line="74" selection-end-column="60" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
