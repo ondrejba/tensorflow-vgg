@@ -6,6 +6,7 @@ import vgg16
 import deep_dream
 
 def main(args):
+  os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
   input_pl, input_t = deep_dream.create_input_placeholder()
   lapnorm, lapnorm_pl = deep_dream.setup_lapnorm(scale_n=args.num_scales)

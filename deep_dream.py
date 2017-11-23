@@ -27,8 +27,9 @@ def get_base_image(height=224, width=224, means=None):
 
 def create_input_placeholder(means=None):
 
-  input_pl = tf.placeholder(tf.float32, shape=(224, 224, 3), name="input")
+  input_pl = tf.placeholder(tf.float32, shape=(None, None, 3), name="input")
   input_t = tf.expand_dims(input_pl, axis=0)
+  input_t = resize_bilinear(input_t, (224, 224, 3))
 
   if means is not None:
     input_t = input_t - means
