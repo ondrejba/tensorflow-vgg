@@ -534,6 +534,56 @@ class Vgg16:
 
         return activations, spatial_argmax, depth_argmax
 
+    def get_all_outputs(self):
+
+        outputs_list = []
+
+        outputs_list.append(self.op_outputs("pool5"))
+        outputs_list.append(self.op_outputs("conv5_3/Conv2D"))
+        outputs_list.append(self.op_outputs("conv5_2/Conv2D"))
+        outputs_list.append(self.op_outputs("conv5_1/Conv2D"))
+
+        outputs_list.append(self.op_outputs("pool4"))
+        outputs_list.append(self.op_outputs("conv4_3/Conv2D"))
+        outputs_list.append(self.op_outputs("conv4_2/Conv2D"))
+        outputs_list.append(self.op_outputs("conv4_1/Conv2D"))
+
+        outputs_list.append(self.op_outputs("pool3"))
+        outputs_list.append(self.op_outputs("conv3_3/Conv2D"))
+        outputs_list.append(self.op_outputs("conv3_2/Conv2D"))
+        outputs_list.append(self.op_outputs("conv3_1/Conv2D"))
+
+        outputs_list.append(self.op_outputs("pool2"))
+        outputs_list.append(self.op_outputs("conv2_2/Conv2D"))
+        outputs_list.append(self.op_outputs("conv2_1/Conv2D"))
+
+        outputs_list.append(self.op_outputs("pool1"))
+        outputs_list.append(self.op_outputs("conv1_2/Conv2D"))
+        outputs_list.append(self.op_outputs("conv1_1/Conv2D"))
+
+        outputs_list = list(reversed(outputs_list))
+
+        return outputs_list
+
+    def get_filter_reduces(self, filters, outputs_list, reduce_max=False):
+
+        filter_reduces = {}
+
+        for layer_idx, filters_list in filters.items():
+
+            filter_reduces[layer_idx] = []
+
+            for filter_idx, in filters_list:
+
+                if reduce_max:
+                    filter_reduce = tf.reduce_max(outputs_list[layer_idx][..., filter_idx], axis=(0, 1, 2))
+                else:
+                    filter_reduce = tf.reduce_mean(outputs_list[layer_idx][..., filter_idx], axis=(0, 1, 2))
+
+                filter_reduces.append(filter_reduce)
+
+        return filter_reduces
+
     def op_outputs(self, name, use_biases=False):
         if use_biases:
             return tf.get_default_graph().get_operation_by_name(name + "_biases").outputs[0]
