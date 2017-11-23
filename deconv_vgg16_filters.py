@@ -77,13 +77,21 @@ def main(args):
             img = utils.load_image(img_path)
             batch = img.reshape((1, 224, 224, 3))
 
-
             filter_reduces_val = sess.run(filter_reduces, feed_dict={ images: batch })
 
-            print(filter_reduces_val)
-
-
             filters_to_deconv = {}
+
+            for layer_idx, filter_values in filter_reduces_val.items():
+
+                filters_to_deconv[layer_idx] = []
+
+                for idx, filter_value in enumerate(filter_values):
+
+                    if max_filter_reduces[layer_idx][idx] < filter_value:
+
+                        filters_to_deconv[layer_idx].append(filters[layer_idx][idx])
+
+            print(filters_to_deconv)
 
             """
 
