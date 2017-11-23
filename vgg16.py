@@ -573,7 +573,7 @@ class Vgg16:
 
             filter_reduces[layer_idx] = []
 
-            for filter_idx, in filters_list:
+            for filter_idx in filters_list:
 
                 if reduce_max:
                     filter_reduce = tf.reduce_max(outputs_list[layer_idx][..., filter_idx], axis=(0, 1, 2))
