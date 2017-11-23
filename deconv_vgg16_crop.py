@@ -60,6 +60,11 @@ def main(args):
                 break
 
             img = utils.load_image(img_path)
+
+            print("img")
+            print("mean:", np.mean(img))
+            print()
+
             batch = img.reshape((1, 224, 224, 3))
 
             for layer_idx in range(len(deconv_gates)):
