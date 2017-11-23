@@ -80,6 +80,8 @@ def main(args):
 
             filter_reduces_val = sess.run(filter_reduces, feed_dict={ images: batch })
 
+            print(filter_reduces_val)
+
 
             filters_to_deconv = {}
 
