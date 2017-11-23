@@ -35,6 +35,15 @@ def open_gates_up_to_index(deconv_gates, feed_dict, idx):
     else:
       feed_dict[deconv_gate] = False
 
+def find_and_replace_max(value, values_list):
+
+    if value > np.min(values_list):
+        index = np.argmin(values_list)
+        values_list[index] = value
+        return index
+    else:
+        return None
+
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -66,7 +75,7 @@ def main(args):
     for layer_idx, filters_list in filters.items():
         max_filter_reduces[layer_idx] = []
         for filter_idx in filters_list:
-            max_filter_reduces[layer_idx].append(0)
+            max_filter_reduces[layer_idx].append([0 for _ in range(9)])
 
     filter_idx_pl = tf.placeholder(tf.int32)
     deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask, filter_idx=filter_idx_pl)
@@ -81,17 +90,20 @@ def main(args):
             filter_reduces_val = sess.run(filter_reduces, feed_dict={ images: batch })
 
             filters_to_deconv = {}
+            deconv_indexes = {}
 
             for layer_idx, filter_values in filter_reduces_val.items():
 
                 filters_to_deconv[layer_idx] = []
+                deconv_indexes[layer_idx] = []
 
                 for idx, filter_value in enumerate(filter_values):
 
-                    if max_filter_reduces[layer_idx][idx] < filter_value:
+                    img_idx = find_and_replace_max(filter_value, max_filter_reduces[layer_idx][idx])
 
+                    if img_idx is not None:
                         filters_to_deconv[layer_idx].append(filters[layer_idx][idx])
-                        max_filter_reduces[layer_idx][idx] = filter_value
+                        deconv_indexes[layer_idx].append(img_idx)
 
 
             for layer_idx, filters_list in filters_to_deconv.items():
