@@ -68,6 +68,8 @@ def main(args):
             max_filter_reduces[layer_idx].append(0)
 
 
+    print(max_filter_reduces)
+
     deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask)
 
     with tf.Session() as sess:
