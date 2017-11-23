@@ -103,12 +103,12 @@ def main(args):
 
                     if img_idx is not None:
                         filters_to_deconv[layer_idx].append(filters[layer_idx][idx])
-                        deconv_indexes[layer_idx].append(img_idx)
+                        deconv_indexes[layer_idx].append(img_idx)   
 
 
             for layer_idx, filters_list in filters_to_deconv.items():
 
-                for filter_idx in filters_list:
+                for idx, filter_idx in enumerate(filters_list):
 
                     print("layer ", layer_idx, ", filter ", filter_idx)
 
@@ -146,15 +146,8 @@ def main(args):
                     if not os.path.isdir(save_dir):
                         os.makedirs(save_dir)
 
-                    i = 0
-                    while True:
-                        save_path = os.path.join(save_dir, "{}.jpg".format(i))
-                        orig_path = os.path.join(save_dir, "{}_orig.jpg".format(i))
-
-                        if not os.path.isfile(save_path):
-                            break
-                        else:
-                            i += 1
+                    save_path = os.path.join(save_dir, "{}.jpg".format(deconv_indexes[layer_idx][idx]))
+                    orig_path = os.path.join(save_dir, "{}_orig.jpg".format(deconv_indexes[layer_idx][idx]))
 
                     cv2.imwrite(save_path, img_val)
 
