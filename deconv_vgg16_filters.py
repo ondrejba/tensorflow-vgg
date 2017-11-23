@@ -50,6 +50,7 @@ def main(args):
 
     with open(args.filters_json, "r") as file:
         filters = json.load(file)
+        filters = {int(key): value for key, value in filters.items()}
 
     images = tf.placeholder(tf.float32, [1, 224, 224, 3])
 

@@ -571,8 +571,6 @@ class Vgg16:
 
         for layer_idx, filters_list in filters.items():
 
-            layer_idx = int(layer_idx)
-
             filter_reduces[layer_idx] = []
 
             for filter_idx in filters_list:
