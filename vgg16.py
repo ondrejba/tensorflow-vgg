@@ -477,7 +477,7 @@ class Vgg16:
 
     def debuild_interlayer_crop(self, deconv, activation, deconv_gate, filter_idx=None, mask=True):
 
-        masked, idxs, filter_idx = self.mask_max_crop(activation, filter_idx=filter_idx, mask=mask)
+        masked, idxs, filter_idx = self.mask_max_crop(activation, filter_idx=filter_idx, deconv_gate=deconv_gate, mask=mask)
 
         return tf.cond(deconv_gate, true_fn=lambda: deconv,
                        false_fn=lambda: masked, strict=True), idxs, filter_idx
@@ -509,7 +509,7 @@ class Vgg16:
 
         return grads, spatial_argmax, depth_argmax
 
-    def mask_max_crop(self, activations, filter_idx=None, original_size=224, mean_filter_activation=True, mask=True):
+    def mask_max_crop(self, activations, filter_idx=None, deconv_gate=None, original_size=224, mean_filter_activation=True, mask=True):
 
         ratio = int(original_size / activations.shape[1].value)
 
@@ -521,7 +521,8 @@ class Vgg16:
         if filter_idx is None:
             depth_argmax = tf.cast(tf.argmax(spatial_reduce, axis=-1), tf.int32)
         else:
-            depth_argmax = filter_idx
+            assert deconv_gate is not None
+            depth_argmax = tf.cond(deconv_gate, true_fn=lambda: tf.cast(tf.argmax(spatial_reduce, axis=-1), tf.int32), false_fn=lambda: filter_idx, strict=True)
 
         spatial_argmax = utils.argmax_2d(activations)[0, :, depth_argmax]
 
@@ -649,8 +650,6 @@ class Vgg16:
         conv1_weights = tf.get_default_graph().get_tensor_by_name(conv_weights_name)
 
         conv1_weights = tf.transpose(conv1_weights, (1, 0, 3, 2))
-        print(conv1_weights)
-        print(activations)
 
         output_shape = (input_shape[0].value, input_shape[1].value * stride, input_shape[2].value * stride,
                         conv1_weights.shape[2].value)
@@ -695,11 +694,6 @@ class Vgg16:
         return zeros
 
     def get_conv_filter(self, name):
-
-        print(name)
-        print(self.data_dict[name][0].shape[-1])
-        print()
-
         return tf.constant(self.data_dict[name][0], name="filter")
 
     def get_bias(self, name):
