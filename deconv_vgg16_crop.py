@@ -84,6 +84,7 @@ def main(args):
                 print("min:", np.min(img_val))
                 print("max:", np.max(img_val))
                 print("mean:", np.mean(img_val))
+                print("std:", np.std(img_val))
                 print()
 
                 receptive_field = mask_indexes[layer_idx][0]
