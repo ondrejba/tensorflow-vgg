@@ -68,10 +68,8 @@ def main(args):
         for filter_idx in filters_list:
             max_filter_reduces[layer_idx].append(0)
 
-
-    print(max_filter_reduces)
-
-    deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask)
+    filter_idx_pl = tf.placeholder(tf.int32)
+    deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask, filter_idx=filter_idx_pl)
 
     with tf.Session() as sess:
 
@@ -95,7 +93,60 @@ def main(args):
                         filters_to_deconv[layer_idx].append(filters[layer_idx][idx])
                         max_filter_reduces[layer_idx][idx] = filter_value
 
-            print(filters_to_deconv)
+
+            for layer_idx, filters_list in filters_to_deconv:
+
+                for filter_idx in filters_list:
+
+                    feed_dict = {
+                       images: batch,
+                       layer_idx_pl: filter_idx
+                    }
+
+                    open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
+
+                    img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
+
+                    receptive_field = mask_indexes[layer_idx][0]
+                    spatial_idx = mask_indexes_val[0]
+                    spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
+
+                    filter_idx = mask_indexes_val[1]
+
+                    img_val = img_val[0]
+                    img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
+                                      spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+
+                    print("min:", np.min(img_val))
+                    print("max:", np.max(img_val))
+                    print("mean:", np.mean(img_val))
+                    print("std:", np.std(img_val))
+                    print()
+
+                    img_val = z_norm(img_val)
+                    img_val = np.clip(img_val, 0, 1)
+                    img_val *= 255
+
+                    save_dir = os.path.join(run_dir, "layer{}".format(layer_idx), "filter{}".format(filter_idx))
+
+                    if not os.path.isdir(save_dir):
+                        os.makedirs(save_dir)
+
+                    i = 0
+                    while True:
+                        save_path = os.path.join(save_dir, "{}.jpg".format(i))
+                        orig_path = os.path.join(save_dir, "{}_orig.jpg".format(i))
+
+                        if not os.path.isfile(save_path):
+                            break
+                        else:
+                            i += 1
+
+                    cv2.imwrite(save_path, img_val)
+
+                    img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
+                                   spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+                    cv2.imwrite(orig_path, img_crop * 255)
 
             """
 
@@ -157,6 +208,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("filters_json")
 parser.add_argument("--mask", default=False, action="store_true")
+parser.add_argument("--reduce-max", default=False, action="store_true")
 parser.add_argument("--bias", default=False, action="store_true")
 
 parsed = parser.parse_args()
