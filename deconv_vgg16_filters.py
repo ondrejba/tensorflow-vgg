@@ -64,8 +64,8 @@ def main(args):
 
     for layer_idx, filters_list in filters.items():
         max_filter_reduces[layer_idx] = []
-        for filter_idx, in filters_list:
-            max_filter_reduces.append(0)
+        for filter_idx in filters_list:
+            max_filter_reduces[layer_idx].append(0)
 
 
     deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask)
