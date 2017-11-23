@@ -70,6 +70,11 @@ def main(args):
 
                 img_val, mask_indexes_val = sess.run([degrad_img[layer_idx], mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
 
+                print("min:", np.min(img_val))
+                print("max:", np.max(img_val))
+                print("mean:", np.mean(img_val))
+                print()
+
                 receptive_field = mask_indexes[layer_idx][0]
                 spatial_idx = mask_indexes_val[0]
                 spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
@@ -99,11 +104,11 @@ def main(args):
                     else:
                         i += 1
 
-                cv2.imwrite(save_path, img_val)
+                #cv2.imwrite(save_path, img_val)
 
                 img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                                spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
-                cv2.imwrite(orig_path, img_crop * 255)
+                #cv2.imwrite(orig_path, img_crop * 255)
 
 parser = argparse.ArgumentParser()
 
