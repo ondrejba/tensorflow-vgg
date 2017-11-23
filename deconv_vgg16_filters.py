@@ -77,6 +77,9 @@ def main(args):
 
             print("img:", img_idx)
 
+            if img_idx >= 10000:
+                break
+
             img = utils.load_image(img_path)
             batch = img.reshape((1, 224, 224, 3))
 
@@ -100,7 +103,6 @@ def main(args):
 
 
             for layer_idx, filters_list in filters_to_deconv.items():
-
 
                 for idx, filter_idx in enumerate(filters_list):
 
