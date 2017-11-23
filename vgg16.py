@@ -436,10 +436,8 @@ class Vgg16:
             mask = tf.zeros((outputs.shape[1].value, outputs.shape[2].value))
             delta = tf.SparseTensor([tf.cast(spatial_argmax, tf.int64)], [1.0], [outputs.shape[1].value, outputs.shape[2].value])
             mask += tf.sparse_tensor_to_dense(delta)
-            print(mask)
 
             outputs = tf.multiply(outputs, tf.cast(tf.stack([tf.stack([mask for _ in range(outputs.shape[3].value)], axis=-1)], axis=0), tf.float32))
-            print(outputs)
 
         grads = tf.gradients(outputs[..., depth_argmax], input_tensor, outputs[..., depth_argmax])[0]
         spatial_argmax = tf.multiply(spatial_argmax, ratio)
@@ -459,7 +457,7 @@ class Vgg16:
         spatial_argmax = utils.argmax_2d(activations)[0, :, depth_argmax]
 
         if mask:
-            mask = tf.zeros((activations.shape[1].value, activations.shape[2].value))
+            mask = tf.zeros((activations.shape[1].value, activations.shape[2].value), dtype=tf.float32)
             delta = tf.SparseTensor([tf.cast(spatial_argmax, tf.int64)], [1.0], [activations.shape[1].value, activations.shape[2].value])
             mask += tf.sparse_tensor_to_dense(delta)
 
