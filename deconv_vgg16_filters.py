@@ -75,7 +75,7 @@ def main(args):
     for layer_idx, filters_list in filters.items():
         max_filter_reduces[layer_idx] = []
         for filter_idx in filters_list:
-            max_filter_reduces[layer_idx].append([0 for _ in range(9)])
+            max_filter_reduces[layer_idx].append([10e-9 for _ in range(9)])
 
     filter_idx_pl = tf.placeholder(tf.int32)
     deconv_img, deconv_gates, mask_indexes = vgg.debuild_crop(use_biases=args.bias, mask=args.mask, filter_idx=filter_idx_pl)
@@ -83,6 +83,8 @@ def main(args):
     with tf.Session() as sess:
 
         for img_idx, img_path in enumerate(val_imgs):
+
+            print(img_idx)
 
             img = utils.load_image(img_path)
             batch = img.reshape((1, 224, 224, 3))
@@ -110,7 +112,7 @@ def main(args):
 
                 for idx, filter_idx in enumerate(filters_list):
 
-                    print("layer ", layer_idx, ", filter ", filter_idx)
+                    #print("layer ", layer_idx, ", filter ", filter_idx)
 
                     feed_dict = {
                        images: batch,
