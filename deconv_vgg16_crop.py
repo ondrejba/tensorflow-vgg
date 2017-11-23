@@ -81,12 +81,6 @@ def main(args):
 
                 img_val, mask_indexes_val = sess.run([deconv_img, mask_indexes[layer_idx][1:]], feed_dict=feed_dict)
 
-                print("min:", np.min(img_val))
-                print("max:", np.max(img_val))
-                print("mean:", np.mean(img_val))
-                print("std:", np.std(img_val))
-                print()
-
                 receptive_field = mask_indexes[layer_idx][0]
                 spatial_idx = mask_indexes_val[0]
                 spatial_idx = np.clip(spatial_idx, math.ceil(receptive_field / 2), 224 - math.floor(receptive_field / 2))
@@ -96,6 +90,12 @@ def main(args):
                 img_val = img_val[0]
                 img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                                   spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
+
+                print("min:", np.min(img_val))
+                print("max:", np.max(img_val))
+                print("mean:", np.mean(img_val))
+                print("std:", np.std(img_val))
+                print()
 
                 img_val = z_norm(img_val)
                 img_val = np.clip(img_val, 0, 1)
