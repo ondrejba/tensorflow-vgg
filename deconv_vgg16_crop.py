@@ -7,7 +7,11 @@ import utils
 
 def z_norm(img_val):
 
-  return (img_val - np.mean(img_val)) / max(np.std(img_val), 10e-4) * 0.1 + 0.5
+    return (img_val - np.mean(img_val)) / max(np.std(img_val), 10e-4) * 0.1 + 0.5
+
+def minmax_norm(img_val):
+
+    return (img_val - np.min(img_val)) / (np.max(img_val) - np.min(img_val))
 
 def new_run_dir(base):
 
@@ -92,7 +96,7 @@ def main(args):
                 img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                                   spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
 
-                img_val = z_norm(img_val)
+                img_val = minmax_norm(img_val)
                 img_val = np.clip(img_val, 0, 1)
                 img_val *= 255
 
@@ -111,11 +115,11 @@ def main(args):
                     else:
                         i += 1
 
-                #cv2.imwrite(save_path, img_val)
+                cv2.imwrite(save_path, img_val)
 
                 img_crop = img[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                                spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
-                #cv2.imwrite(orig_path, img_crop * 255)
+                cv2.imwrite(orig_path, img_crop * 255)
 
 parser = argparse.ArgumentParser()
 
