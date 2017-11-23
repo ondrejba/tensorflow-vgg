@@ -595,6 +595,8 @@ class Vgg16:
         conv1_weights = tf.get_default_graph().get_tensor_by_name(conv_weights_name)
 
         conv1_weights = tf.transpose(conv1_weights, (1, 0, 2, 3))
+        print(conv1_weights)
+        print(activations)
 
         output_shape = (input_shape[0].value, input_shape[1].value * stride, input_shape[2].value * stride,
                         conv1_weights.shape[2].value)
