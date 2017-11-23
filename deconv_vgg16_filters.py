@@ -75,7 +75,7 @@ def main(args):
 
         for img_idx, img_path in enumerate(val_imgs):
 
-            print(img_idx)
+            print("img:", img_idx)
 
             img = utils.load_image(img_path)
             batch = img.reshape((1, 224, 224, 3))
@@ -101,7 +101,11 @@ def main(args):
 
             for layer_idx, filters_list in filters_to_deconv.items():
 
+
                 for idx, filter_idx in enumerate(filters_list):
+
+                    print(layer_idx, filter_idx)
+
 
                     #print("layer ", layer_idx, ", filter ", filter_idx)
 
