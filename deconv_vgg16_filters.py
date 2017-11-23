@@ -78,7 +78,7 @@ def main(args):
             batch = img.reshape((1, 224, 224, 3))
 
 
-            filter_reduces_val = session.run(filter_reduces, feed_dict={ images: batch })
+            filter_reduces_val = sess.run(filter_reduces, feed_dict={ images: batch })
 
 
             filters_to_deconv = {}
