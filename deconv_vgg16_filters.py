@@ -100,7 +100,7 @@ def main(args):
 
                     feed_dict = {
                        images: batch,
-                       layer_idx_pl: filter_idx
+                       filter_idx_pl: filter_idx
                     }
 
                     open_gates_up_to_index(deconv_gates, feed_dict, layer_idx)
