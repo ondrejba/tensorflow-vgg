@@ -92,6 +92,9 @@ def main(args):
 
                 for idx, filter_value in enumerate(filter_values):
 
+                    if layer_idx == 15:
+                        print(filter_value)
+
                     img_idx = utils.find_and_replace_max(filter_value, max_filter_reduces[layer_idx][idx])
 
                     if img_idx is not None:
