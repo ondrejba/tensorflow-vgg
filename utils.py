@@ -58,32 +58,32 @@ def load_image2(path, height=None, width=None):
     return skimage.transform.resize(img, (ny, nx))
 
 def read_imgnet_labels(path):
-      """
-      Read and parse ILSVRC validation labels.
-      :param path:    Path to the labels text fi;e/
-      :return:        Parsed labels.
-      """
+    """
+    Read and parse ILSVRC validation labels.
+    :param path:    Path to the labels text fi;e/
+    :return:        Parsed labels.
+    """
 
-      with open(path, "r") as f:
+    with open(path, "r") as f:
         content = f.readlines()
 
-      content = [x.strip() for x in content]
-      content = sorted(content)
-      labels = [int(x.split(" ")[1]) for x in content]
+    content = [x.strip() for x in content]
+    content = sorted(content)
+    labels = [int(x.split(" ")[1]) for x in content]
 
-      return labels
+    return labels
 
 def argmax_2d(tensor):
 
-      assert rank(tensor) == 4
+    assert rank(tensor) == 4
 
-      flat_tensor = tf.reshape(tensor, (tf.shape(tensor)[0], -1, tf.shape(tensor)[3]))
-      argmax = tf.cast(tf.argmax(flat_tensor, axis=1), tf.int32)
+    flat_tensor = tf.reshape(tensor, (tf.shape(tensor)[0], -1, tf.shape(tensor)[3]))
+    argmax = tf.cast(tf.argmax(flat_tensor, axis=1), tf.int32)
 
-      argmax_x = argmax // tf.shape(tensor)[2]
-      argmax_y = argmax % tf.shape(tensor)[2]
+    argmax_x = argmax // tf.shape(tensor)[2]
+    argmax_y = argmax % tf.shape(tensor)[2]
 
-      return tf.stack((argmax_x, argmax_y), axis=1)
+    return tf.stack((argmax_x, argmax_y), axis=1)
 
 def rank(tensor):
     return len(tensor.get_shape())
@@ -101,3 +101,12 @@ def mask_crop(start_x, end_x, start_y, end_y, width, height, depth):
     mask = tf.concat([zeros_left, mask, zeros_right], axis=1)
 
     return mask
+
+def find_and_replace_max(value, values_list):
+
+    if value > np.min(values_list):
+        index = np.argmin(values_list)
+        values_list[index] = value
+        return index
+    else:
+        return None

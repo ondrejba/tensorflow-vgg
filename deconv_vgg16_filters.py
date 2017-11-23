@@ -35,15 +35,6 @@ def open_gates_up_to_index(deconv_gates, feed_dict, idx):
     else:
       feed_dict[deconv_gate] = False
 
-def find_and_replace_max(value, values_list):
-
-    if value > np.min(values_list):
-        index = np.argmin(values_list)
-        values_list[index] = value
-        return index
-    else:
-        return None
-
 def main(args):
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -101,7 +92,7 @@ def main(args):
 
                 for idx, filter_value in enumerate(filter_values):
 
-                    img_idx = find_and_replace_max(filter_value, max_filter_reduces[layer_idx][idx])
+                    img_idx = utils.find_and_replace_max(filter_value, max_filter_reduces[layer_idx][idx])
 
                     if img_idx is not None:
                         filters_to_deconv[layer_idx].append(filters[layer_idx][idx])
