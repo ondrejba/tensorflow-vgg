@@ -98,6 +98,8 @@ def main(args):
 
                 for filter_idx in filters_list:
 
+                    print("layer ", layer_idx, ", filter ", filter_idx)
+
                     feed_dict = {
                        images: batch,
                        filter_idx_pl: filter_idx
@@ -117,11 +119,11 @@ def main(args):
                     img_val = img_val[spatial_idx[0] - math.ceil(receptive_field / 2) : spatial_idx[0] + math.floor(receptive_field / 2),
                                       spatial_idx[1] - math.ceil(receptive_field / 2) : spatial_idx[1] + math.floor(receptive_field / 2), :]
 
-                    print("min:", np.min(img_val))
-                    print("max:", np.max(img_val))
-                    print("mean:", np.mean(img_val))
-                    print("std:", np.std(img_val))
-                    print()
+                    #print("min:", np.min(img_val))
+                    #print("max:", np.max(img_val))
+                    #print("mean:", np.mean(img_val))
+                    #print("std:", np.std(img_val))
+                    #print()
 
                     img_val = z_norm(img_val)
                     img_val = np.clip(img_val, 0, 1)
