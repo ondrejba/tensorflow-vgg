@@ -582,7 +582,7 @@ class Vgg16:
                 else:
                     filter_reduce = tf.reduce_mean(outputs_list[layer_idx][..., filter_idx], axis=(0, 1, 2))
 
-                filter_reduces.append(filter_reduce)
+                filter_reduces[layer_idx].append(filter_reduce)
 
         return filter_reduces
 
