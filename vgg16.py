@@ -211,7 +211,7 @@ class Vgg16:
         # BLOCK 5
         receptive_field = 212
         outputs = self.op_outputs("pool5")
-        masked, idxs, filter_idx = self.mask_max_crop(outputs, mask=mask, filter_idx=filter_idx)
+        masked, idxs, filter_idx = self.mask_max_crop(outputs, mask=mask, filter_idx=filter_idx, deconv_gate=tf.constant(False))
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask5)
 
