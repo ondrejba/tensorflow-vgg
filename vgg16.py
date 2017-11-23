@@ -177,6 +177,8 @@ class Vgg16:
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask5)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 196
         outputs = self.op_outputs("conv5_3/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[16], mask=mask)
@@ -184,12 +186,16 @@ class Vgg16:
         activations = self.conv_reverse(masked, "conv5_3/filter:0", biases_name="conv5_3/biases:0",
                                         use_biases=use_biases)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 164
         outputs = self.op_outputs("conv5_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[15], mask=mask)
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv5_2/filter:0", biases_name="conv5_2/biases:0",
                                         use_biases=use_biases)
+
+        activations = tf.nn.relu(activations)
 
         receptive_field = 132
         outputs = self.op_outputs("conv5_1/Conv2D")
@@ -205,6 +211,8 @@ class Vgg16:
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask4)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 92
         outputs = self.op_outputs("conv4_3/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[12], mask=mask)
@@ -212,12 +220,16 @@ class Vgg16:
         activations = self.conv_reverse(masked, "conv4_3/filter:0", biases_name="conv4_3/biases:0",
                                         use_biases=use_biases)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 76
         outputs = self.op_outputs("conv4_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[11], mask=mask)
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv4_2/filter:0", biases_name="conv4_2/biases:0",
                                         use_biases=use_biases)
+
+        activations = tf.nn.relu(activations)
 
         receptive_field = 60
         outputs = self.op_outputs("conv4_1/Conv2D")
@@ -233,6 +245,8 @@ class Vgg16:
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask3)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 40
         outputs = self.op_outputs("conv3_3/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[8], mask=mask)
@@ -240,12 +254,16 @@ class Vgg16:
         activations = self.conv_reverse(masked, "conv3_3/filter:0", biases_name="conv3_3/biases:0",
                                         use_biases=use_biases)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 32
         outputs = self.op_outputs("conv3_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[7], mask=mask)
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv3_2/filter:0", biases_name="conv3_2/biases:0",
                                         use_biases=use_biases)
+
+        activations = tf.nn.relu(activations)
 
         receptive_field = 24
         outputs = self.op_outputs("conv3_1/Conv2D")
@@ -261,12 +279,16 @@ class Vgg16:
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask2)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 14
         outputs = self.op_outputs("conv2_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[4], mask=mask)
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv2_2/filter:0", biases_name="conv2_2/biases:0",
                                         use_biases=use_biases)
+
+        activations = tf.nn.relu(activations)
 
         receptive_field = 10
         outputs = self.op_outputs("conv2_1/Conv2D")
@@ -282,12 +304,16 @@ class Vgg16:
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.max_pool_reverse(masked, self.mask1)
 
+        activations = tf.nn.relu(activations)
+
         receptive_field = 5
         outputs = self.op_outputs("conv1_2/Conv2D")
         masked, idxs, filter_idx = self.debuild_interlayer_crop(activations, outputs, deconv_gates[1], mask=mask)
         mask_indexes.append((receptive_field, idxs, filter_idx))
         activations = self.conv_reverse(masked, "conv1_2/filter:0", biases_name="conv1_2/biases:0",
                                         use_biases=use_biases)
+
+        activations = tf.nn.relu(activations)
 
         receptive_field = 3
         outputs = self.op_outputs("conv1_1/Conv2D")
