@@ -16,9 +16,10 @@ def main(args):
 
   model.build(input_t / 255)
 
-  objective_names = ['conv1_1/Conv2D', 'conv1_2/Conv2D', 'pool1', 'conv2_1/Conv2D', 'conv2_2/Conv2D', 'pool2', 'conv3_1/Conv2D', 'conv3_2/Conv2D', 'conv3_3/Conv2D', 'pool3',
-                'conv4_1/Conv2D', 'conv4_2/Conv2D', 'conv4_3/Conv2D', 'pool4', 'conv5_1/Conv2D', 'conv5_2/Conv2D', 'conv5_3/Conv2D',
-                'fc6/fc_add', 'fc7/fc_add', 'fc8/fc_add']
+  #objective_names = ['conv1_1/Conv2D', 'conv1_2/Conv2D', 'pool1', 'conv2_1/Conv2D', 'conv2_2/Conv2D', 'pool2', 'conv3_1/Conv2D', 'conv3_2/Conv2D', 'conv3_3/Conv2D', 'pool3',
+  #              'conv4_1/Conv2D', 'conv4_2/Conv2D', 'conv4_3/Conv2D', 'pool4', 'conv5_1/Conv2D', 'conv5_2/Conv2D', 'conv5_3/Conv2D',
+  #              'fc6/fc_add', 'fc7/fc_add', 'fc8/fc_add']
+  objective_names = ["fc8/fc_add"]
   objectives = [tf.get_default_graph().get_operation_by_name(name).outputs[0] for name in objective_names]
 
   with tf.Session() as sess:
