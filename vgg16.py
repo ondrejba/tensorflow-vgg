@@ -678,7 +678,7 @@ class Vgg16:
 
             # Fully connected layer. Note that the "+" operation automatically
             # broadcasts the biases.
-            fc = tf.nn.bias_add(tf.matmul(x, weights), biases)
+            fc = tf.nn.bias_add(tf.matmul(x, weights), biases, name="fc_add")
 
             return fc
 
